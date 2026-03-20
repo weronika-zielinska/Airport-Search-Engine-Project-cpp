@@ -47,34 +47,33 @@ int main()
 		Airport airport;
 
 		
-		getline(ss, airport.type, ",");  // read csv up to comma and save in airport.type
-		getline(ss,airport.ident, ","); 
-		getline(ss, airport.name, ",");
+		getline(ss, airport.ident, ',');
+		getline(ss, airport.type, ',');  // read csv up to comma and save in airport.type
+		getline(ss, airport.name, ',');
 
-		getline(ss, column, ",");
+		getline(ss, column, ',');
 		airport.elevation = column.empty() ? 0 : stoi(column); // column.empty() check if string its empty, stoi change string to int, ?0: - if;
-		getline(ss, column, ","); //skip continent column
-		getline(ss, airport.country, ",");
-		getline(ss, column, ","); // skip region column
-		getline(ss, airport.municipality, ",");
-		getline(ss, column, ","); // skip icao column
-		getline(ss, airport.iata, ",");
-		getline(ss, column, ","); //skip gps column
-		getline(ss, column, ","); // skip local column
+		getline(ss, column, ','); //skip continent column
+		getline(ss, airport.country, ',');
+		getline(ss, column, ','); // skip region column
+		getline(ss, airport.municipality, ',');
+		getline(ss, column, ','); // skip icao column
+		getline(ss, airport.iata, ',');
+		getline(ss, column, ','); //skip gps column
+		getline(ss, column, ','); // skip local column
 		
 		//coordinates 
-		getline(ss, column, ",");
+		getline(ss, column, ',');
+		size_t commaPos = column.find(','); //looking for forst comma in row
 
-		stringstream coordStream(column); //new strong for coordinates
-		string lat, lon; //new changes for coordinates
-		
-
-		getline(coordStream, lat, ""); // thisn line reading up to first space 
-
-		if (!lat.empty() && !lon.empty()) { //check if data exist , if lat and lot are not empty then:
-			airport.latitude = stod(lat); //conver string>double
+		if (commaPos != string::npos) { //checking if there is comma, string::npos =? - means not found
+			string lat = column.substr(0, commaPos); //take first coordinate from position 0 to comma
+			string lon = column.substr(commaPos + 1); // take secon coordinate after comma
+			
+			airport.latitude = stod(lat); //convert string>double
 			airport.longitude = stod(lon);
 		}
+
 
 		airports.push_back(airport); //add airport to list vector<Airport> airports
 
@@ -82,7 +81,7 @@ int main()
 	file.close();
 
 
-	cout << "Loaded airports: " << airport.size() << endl;
+	cout << "Loaded airports: " << airports.size() << endl;
 
 	return 0;
  
