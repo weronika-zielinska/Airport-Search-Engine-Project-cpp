@@ -4,10 +4,26 @@
 #include <iostream>
 #include <fstream> //to work with files
 #include <string>
+#include <sstream>
+#include <vector>
 using namespace std;
+
+struct Airport {
+	string ident;
+	string type;
+	string name;
+	double latitude; // coordinates 1
+	double longitude; // coordiantes 2
+	int elevation;
+	string country;
+	string municipality;
+	string iata;
+};
 
 int main()
 {
+	vector <Airport> airports;
+
 	ifstream file("airport-codes.csv"); //input file stream - reading csv
 
 	if (!file.is_open()) { //check if file can be open
