@@ -52,7 +52,18 @@ int main()
 		getline(ss, airport.name, ',');
 
 		getline(ss, column, ',');
-		airport.elevation = column.empty() ? 0 : stoi(column); // column.empty() check if string its empty, stoi change string to int, ?0: - if;
+		if (!column.empty()) {
+			try {
+				airport.elevation = stoi(column);
+			}
+			catch (...) {
+				airport.elevation = 0;
+			}
+		}
+		else {
+			airport.elevation = 0;
+		}
+	
 		getline(ss, column, ','); //skip continent column
 		getline(ss, airport.country, ',');
 		getline(ss, column, ','); // skip region column
@@ -70,8 +81,14 @@ int main()
 			string lat = column.substr(0, commaPos); //take first coordinate from position 0 to comma
 			string lon = column.substr(commaPos + 1); // take secon coordinate after comma
 			
-			airport.latitude = stod(lat); //convert string>double
-			airport.longitude = stod(lon);
+			try {
+				airport.latitude = stod(lat); //convert string>double
+				airport.longitude = stod(lon);
+			}
+			catch (...) {
+				airport.latitude = 0;
+				airport.longitude = 0;
+			}
 		}
 
 
