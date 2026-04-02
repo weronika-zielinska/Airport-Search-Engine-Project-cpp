@@ -9,11 +9,18 @@
 #include "Airport.h"
 using namespace std;
 
+class AirportManager {
+public:
+	vector<Airport> airports;
+
+	void loadfromCSV();
+	void displayAll();
+};
 
 int main()
 {
 
-	vector <Airport> airports;
+	AirportManager manager;
 
 	ifstream file("airport-codes.csv"); //input file stream - reading csv
 
@@ -79,17 +86,17 @@ int main()
 		}
 
 
-		airports.push_back(airport); //add airport to list vector<Airport> airports
+		manager.airports.push_back(airport); //add airport to list vector<Airport> airports
 
 	}
 	file.close();
 
 
-	cout << "Loaded airports: " << airports.size() << endl;
+	cout << "Loaded airports: " << manager.airports.size() << endl;
 
 	cout << "First 5 airports: \n";
-	for (int i = 0; i < 5 && i < airports.size(); i++) {
-		airports[i].display();
+	for (int i = 0; i < 5 && i < manager.airports.size(); i++) {
+		manager.airports[i].display();
 	}
 
 	return 0;
