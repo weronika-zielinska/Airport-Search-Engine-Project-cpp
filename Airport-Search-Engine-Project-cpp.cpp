@@ -14,12 +14,21 @@ public:
 	string ident;
 	string type;
 	string name;
-	int elevation;
+	int elevation = 0;
 	string country;
 	string municipality;
 	string iata;
-	double latitude; //coordinates 1
-	double longitude; // coordinates 2
+	double latitude = 0.0; //coordinates 1
+	double longitude = 0.0; // coordinates 2
+
+	void display() {
+		cout << "ID: " << ident
+			<< "| Name: " << name
+			<< "| Country: " << country
+			<< "| IATA: " << iata
+			<< endl;
+
+	}
 };
 
 
@@ -100,6 +109,11 @@ int main()
 
 
 	cout << "Loaded airports: " << airports.size() << endl;
+
+	cout << "First 5 airports: \n";
+	for (int i = 0; i < 5 && i < airports.size(); i++) {
+		airports[i].display();
+	}
 
 	return 0;
  
