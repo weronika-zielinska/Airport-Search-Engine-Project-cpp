@@ -129,6 +129,9 @@
   <ItemGroup>
     <ClCompile Include="Airport-Search-Engine-Project-cpp.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Airport.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
