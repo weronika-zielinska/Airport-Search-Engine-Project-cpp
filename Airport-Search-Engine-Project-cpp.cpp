@@ -9,7 +9,8 @@
 using namespace std;
 
 
-struct Airport {
+class Airport {
+public:
 	string ident;
 	string type;
 	string name;
