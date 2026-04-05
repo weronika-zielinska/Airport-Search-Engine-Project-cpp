@@ -10,19 +10,12 @@
 # include "AirportManager.h"
 using namespace std;
 
-class AirportManager {
-public:
-	vector<Airport> airports;
-
-	void loadfromCSV();
-	void displayAll();
-};
 
 int main()
 {
 	AirportManager manager;
 
-	manager.loadFormCSV("airport-codes.csv");
+	manager.loadFromCSV("airport-codes.csv");
 
 	cout << "Loaded airports: " << manager.airports.size() << endl;
 	

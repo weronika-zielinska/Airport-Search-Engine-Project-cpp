@@ -2,41 +2,43 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <iostream>
 #include "Airport.h"
 
 using namespace std;
 
-class AirportManager {
+class AirportManager {  // klasa zarzajaca wszystkimi lotniskami
 public:
-    vector <Airport> airports;
+	vector <Airport> airports; // lista wszystkich lotnisk
 
-    void loadFromCSV(const string& filename);
+	void loadFromCSV(const string& filename); //funkcja do wczytywanie z csv
 
-    void displayAll() {
-        for (const auto& airport : airports) {
-            airport.display();
-        }
-    }
+	void displayAll() { // funckja do wyswietlanie z csv
+		for (const auto& airport : airports) {
+			airport.display();
+		}
+	}
+};
 
-	AirportManager manager;
+// implementacja funkcji
+void AirportManager::loadFromCSV(const string& filename) {
 
-	ifstream file("airport-codes.csv"); //input file stream - reading csv
+	ifstream file(filename); //input file stream - reading csv
 
 	if (!file.is_open()) { //check if file can be open
 		cout << "Error! Could not open file!" << endl;
-		return 1;
+		return;
 	}
 
 	string line; // it will be safe line from csv
 
-	getline(file, line); //getline its function from <string> library to reading whole line of text
-	// taking one line from file and save it in string line
+	getline(file, line); // pomijamy naglowek
 
 	while (getline(file, line)) {
 
 		stringstream ss(line); // ss from <sstream> making data with pieces with ,
 		string column; // to save one column of csv
-		Airport airport;
+		Airport airport; //nowy obiekt airport
 
 
 		getline(ss, airport.ident, ',');
@@ -51,9 +53,6 @@ public:
 			catch (...) {
 				airport.elevation = 0;
 			}
-		}
-		else {
-			airport.elevation = 0;
 		}
 
 		getline(ss, column, ','); //skip continent column
@@ -82,11 +81,8 @@ public:
 				airport.longitude = 0;
 			}
 		}
-
-
-		manager.airports.push_back(airport); //add airport to list vector<Airport> airports
+		airports.push_back(airport); //add airport to list vector<Airport> airports
 
 	}
 	file.close();
-};
-
+}

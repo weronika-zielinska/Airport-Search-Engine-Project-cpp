@@ -15,7 +15,7 @@ public:
 	double latitude = 0.0; //coordinates 1
 	double longitude = 0.0; // coordinates 2
 
-	void display() {
+	void display() const {
 		cout << "ID: " << ident
 			<< "| Name: " << name
 			<< "| Country: " << country
