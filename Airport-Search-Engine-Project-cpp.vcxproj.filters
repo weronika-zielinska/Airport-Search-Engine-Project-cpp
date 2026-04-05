@@ -23,5 +23,8 @@
     <ClInclude Include="Airport.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="AirportManager.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
