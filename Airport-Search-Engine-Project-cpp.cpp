@@ -20,7 +20,7 @@ int main()
 
 	do {
 		cout << "\n ~*~*~*~*~ Airport Serch Engine ~*~*~*~*~\n";
-		cout << " 1. Display first 5 airports" << endl;
+		cout << " 1. Search Airports by Country" << endl;
 		cout << " 2. Display all airports" << endl;
 		cout << " 3. Show total number of airports" << endl;
 		cout << " 4. Exit" << endl;
@@ -28,11 +28,14 @@ int main()
 		cin >> choice;
 
 		switch (choice) { //wybiera co zrobic w zaleznosci od opcji
-		case 1:
-			for (int i = 0; i < 6 && i < manager.airports.size(); i++) {
-				manager.airports[i].display();
-			}
+		case 1: {
+			string country;
+			cout << "Enter country code (e.g. GB, US): ";
+			cin >> country;
+
+			manager.searchByCountry(country);
 			break;
+		}
 		case 2:
 			manager.displayAll();
 			break;

@@ -18,6 +18,8 @@ public:
 			airport.display();
 		}
 	}
+
+	void searchByCountry(const string& countryCode);
 };
 
 // implementacja funkcji
@@ -85,4 +87,22 @@ void AirportManager::loadFromCSV(const string& filename) {
 
 	}
 	file.close();
+}
+
+
+void AirportManager::searchByCountry(const string& countryCode) {
+	
+	bool found = false; //czy znaleziono jakiekolwiek wyniki
+
+	for (const auto& airport : airports) { // przechodzi przez wszystkie lotniska
+
+		if (airport.country == countryCode) { // sprawdza czy kraj sie zgadza
+			airport.display();
+			found = true;
+		}
+	}
+
+	if (!found) { // jesli nie znalazlo to komunikat
+		cout << "No airports found for country: " << countryCode << endl;
+	}
 }
