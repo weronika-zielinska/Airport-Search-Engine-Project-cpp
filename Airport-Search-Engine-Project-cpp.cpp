@@ -14,16 +14,44 @@ using namespace std;
 int main()
 {
 	AirportManager manager;
-
 	manager.loadFromCSV("airport-codes.csv");
 
-	cout << "Loaded airports: " << manager.airports.size() << endl;
-	
-	for (int i = 0; i < 5 && i < manager.airports.size(); i++) {
-		manager.airports[i].display();
-	}
+	int choice;
 
-	return 0;
+	do {
+		cout << "\n ~*~*~*~*~ Airport Serch Engine ~*~*~*~*~\n";
+		cout << " 1. Display first 5 airports" << endl;
+		cout << " 2. Display all airports" << endl;
+		cout << " 3. Show total number of airports" << endl;
+		cout << " 4. Exit" << endl;
+		cout << "Enter your choice: " << endl;
+		cin >> choice;
+
+		switch (choice) { //wybiera co zrobic w zaleznosci od opcji
+		case 1:
+			for (int i = 0; i < 6 && i < manager.airports.size(); i++) {
+				manager.airports[i].display();
+			}
+			break;
+		case 2:
+			manager.displayAll();
+			break;
+		case 3:
+			cout << "Total airports: " << manager.airports.size() << endl;
+			break;
+		case  4:
+			cout << " Exiting program..." << "\n" << "Thank you!" << endl;
+			break;
+
+		default:
+			cout << "Invalid choice!" << endl;
+		}
+
+	}
+			while (choice != 0);
+
+			return 0;
+
  
 }
 
