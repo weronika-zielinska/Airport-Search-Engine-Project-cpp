@@ -21,6 +21,7 @@ public:
 
 	void searchByCountry(const string& countryCode);
 	void searchByName(const string& namePart);
+	void searchByIATA(const string& iataCode);
 
 };
 
@@ -113,7 +114,7 @@ void AirportManager::searchByName(const string& namePart) {
 	bool found = false;
 
 	for (const auto& airport : airports) {
-		//sprawdzamy czy fragment nazwy wystepuje w nazwie jakiegos lotniska
+		//sprawdzamy czy fragment nazwy wystepuje w nazwie jakiegos lotniska dlatego .find() - do fragnmentowego szukania
 		if (airport.name.find(namePart) != string::npos) { //npos oznacza znaleziono
 			airport.display();
 			found = true;
@@ -121,5 +122,19 @@ void AirportManager::searchByName(const string& namePart) {
 	}
 	if (!found) {
 		cout << "No Airports matching the criteria: " << namePart << endl;
+	}
+}
+
+void AirportManager::searchByIATA(const string& iataCode) {
+	bool found = false;
+
+	for (const auto& airport : airports) {
+		if (airport.iata == iataCode) { //szukamy dokladnego dopasowania kodu
+			airport.display();
+			found = true;
+		}
+	}
+	if (!found) {
+		cout << " No airpost found with IATA code: " << iataCode << endl;
 	}
 }

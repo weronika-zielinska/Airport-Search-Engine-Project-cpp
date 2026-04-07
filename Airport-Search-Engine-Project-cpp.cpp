@@ -47,15 +47,23 @@ int main()
 			break;
 		}
 			
-		case 3:
-			cout << "Total airports: " << manager.airports.size() << endl;
+		case 3: {
+			string iata; // nowy variables to iata
+			cout << "Enter IATA code (e.g. LHR, JFK): ";
+			cin >> iata;;
+
+			manager.searchByIATA(iata);
 			break;
+		}
+
 		case  4:
 			manager.displayAll();
 			break;
+
 		case 5:
 			manager.displayAll();
 			break;
+		
 		case 6:
 			cout << " Exiting program..." << "\n" << "Thank you!" << endl;
 			break;
