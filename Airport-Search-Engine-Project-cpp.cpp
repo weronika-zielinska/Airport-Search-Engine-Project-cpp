@@ -20,10 +20,12 @@ int main()
 
 	do {
 		cout << "\n ~*~*~*~*~ Airport Serch Engine ~*~*~*~*~\n";
-		cout << " 1. Search Airports by Country" << endl;
-		cout << " 2. Display all airports" << endl;
-		cout << " 3. Show total number of airports" << endl;
-		cout << " 4. Exit" << endl;
+		cout << " 1. Search airports by Country" << endl;
+		cout << " 2. Search airports by name" << endl;
+		cout << " 3. Search by IATA code" << endl;
+		cout << " 4. Display all airports" << endl;
+		cout << " 5. Count airports by type" << endl;
+		cout << " 6. Exit" << endl;
 		cout << "Enter your choice: " << endl;
 		cin >> choice;
 
@@ -36,13 +38,25 @@ int main()
 			manager.searchByCountry(country);
 			break;
 		}
-		case 2:
-			manager.displayAll();
+		case 2: {
+			string name; //nowy variables to szukania po nazwie
+			cout << "Enter part of airport name: ";
+			cin >> name;
+
+			manager.searchByName(name);
 			break;
+		}
+			
 		case 3:
 			cout << "Total airports: " << manager.airports.size() << endl;
 			break;
 		case  4:
+			manager.displayAll();
+			break;
+		case 5:
+			manager.displayAll();
+			break;
+		case 6:
 			cout << " Exiting program..." << "\n" << "Thank you!" << endl;
 			break;
 

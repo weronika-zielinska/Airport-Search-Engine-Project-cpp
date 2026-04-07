@@ -20,6 +20,8 @@ public:
 	}
 
 	void searchByCountry(const string& countryCode);
+	void searchByName(const string& namePart);
+
 };
 
 // implementacja funkcji
@@ -104,5 +106,20 @@ void AirportManager::searchByCountry(const string& countryCode) {
 
 	if (!found) { // jesli nie znalazlo to komunikat
 		cout << "No airports found for country: " << countryCode << endl;
+	}
+}
+
+void AirportManager::searchByName(const string& namePart) {
+	bool found = false;
+
+	for (const auto& airport : airports) {
+		//sprawdzamy czy fragment nazwy wystepuje w nazwie jakiegos lotniska
+		if (airport.name.find(namePart) != string::npos) { //npos oznacza znaleziono
+			airport.display();
+			found = true;
+		}
+	}
+	if (!found) {
+		cout << "No Airports matching the criteria: " << namePart << endl;
 	}
 }
