@@ -66,6 +66,8 @@ void AirportManager::loadFromCSV(const string& filename) {
 		getline(ss, airport.municipality, ',');
 		getline(ss, column, ','); // skip icao column
 		getline(ss, airport.iata, ',');
+		cout << "DEBUG IATA: " << airport.iata << endl;
+	
 		getline(ss, column, ','); //skip gps column
 		getline(ss, column, ','); // skip local column
 
