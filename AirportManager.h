@@ -4,8 +4,18 @@
 #include <sstream>
 #include <iostream>
 #include "Airport.h"
+#include <algorithm>
 
 using namespace std;
+
+string trim(const string& str) { //usuwamy spacje z poczatku i konca
+	size_t first = str.find_first_not_of(" \t\n\r");
+	size_t last = str.find_last_not_of(" \t\n\r");
+
+	if (first == string::npos) return "";
+
+	return str.substr(first, (last - first + 1));
+}
 
 class AirportManager {  // klasa zarzajaca wszystkimi lotniskami
 public:
@@ -46,11 +56,13 @@ void AirportManager::loadFromCSV(const string& filename) {
 		Airport airport; //nowy obiekt airport
 
 
-		getline(ss, airport.ident, ',');
-		getline(ss, airport.type, ',');  // read csv up to comma and save in airport.type
-		getline(ss, airport.name, ',');
+		getline(ss, airport.ident, ','); //ident
 
-		getline(ss, column, ',');
+		getline(ss, airport.type, ',');  //type,  read csv up to comma and save in airport.type
+		
+		getline(ss, airport.name, ','); // name
+
+		getline(ss, column, ','); //elevation
 		if (!column.empty()) {
 			try {
 				airport.elevation = stoi(column);
@@ -61,14 +73,21 @@ void AirportManager::loadFromCSV(const string& filename) {
 		}
 
 		getline(ss, column, ','); //skip continent column
-		getline(ss, airport.country, ',');
+
+		getline(ss, airport.country, ','); // country
+
 		getline(ss, column, ','); // skip region column
-		getline(ss, airport.municipality, ',');
-		getline(ss, column, ','); // skip icao column
-		getline(ss, airport.iata, ',');
+
+		getline(ss, airport.municipality, ','); //municipality
+
+		getline(ss, column, ','); // skip ICAO column,
+
+		getline(ss, airport.iata, ','); // iata
+		airport.iata = trim(airport.iata);
 		cout << "DEBUG IATA: " << airport.iata << endl;
 	
 		getline(ss, column, ','); //skip gps column
+
 		getline(ss, column, ','); // skip local column
 
 		//coordinates 
@@ -130,8 +149,10 @@ void AirportManager::searchByName(const string& namePart) {
 void AirportManager::searchByIATA(const string& iataCode) {
 	bool found = false;
 
+	string code = trim(iataCode); // czyscimy input uzytkownika
+
 	for (const auto& airport : airports) {
-		if (airport.iata == iataCode) { //szukamy dokladnego dopasowania kodu
+		if (airport.iata == code) { //szukamy dokladnego dopasowania kodu
 			airport.display();
 			found = true;
 		}
