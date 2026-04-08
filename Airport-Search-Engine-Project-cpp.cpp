@@ -61,7 +61,7 @@ int main()
 			break;
 
 		case 5:
-			manager.displayAll();
+			manager.countByType();
 			break;
 		
 		case 6:

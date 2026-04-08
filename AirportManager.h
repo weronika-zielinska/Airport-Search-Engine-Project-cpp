@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Airport.h"
 #include <algorithm>
+#include <map>
 
 using namespace std;
 
@@ -32,6 +33,7 @@ public:
 	void searchByCountry(const string& countryCode);
 	void searchByName(const string& namePart);
 	void searchByIATA(const string& iataCode);
+	void countByType();
 
 };
 
@@ -83,8 +85,6 @@ void AirportManager::loadFromCSV(const string& filename) {
 		getline(ss, column, ','); // skip ICAO column,
 
 		getline(ss, airport.iata, ','); // iata
-		airport.iata = trim(airport.iata);
-		cout << "IATA RAW: [" << airport.iata << "]" << endl; //looking for errors 
 	
 		getline(ss, column, ','); //skip gps column
 
@@ -159,5 +159,20 @@ void AirportManager::searchByIATA(const string& iataCode) {
 	}
 	if (!found) {
 		cout << " No airpost found with IATA code: " << iataCode << endl;
+	}
+}
+
+void AirportManager::countByType() { // using map - key-value container
+	map <string, int> counts; //przechowuje dane bo kolumna "type" to liczba
+	// klucz - string , wartosc - int, map przechowuje pary danych pair=(klucz,wartosc)
+
+	for (const auto& airport : airports) {
+		counts[airport.type]++;  // jesli typ nie istnieje to sie tgworzy automatycznie i zwieksza licznik o jeden
+	}
+
+	cout << "Airports by type: " << endl;
+
+	for (const auto& pair : counts) { //wez kazda pare z mapy counts
+		cout << pair.first << ": " << pair.second << endl; //dostep do pierwszewgo i drugiego elementu pary
 	}
 }
