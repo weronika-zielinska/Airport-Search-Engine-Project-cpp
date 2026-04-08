@@ -84,7 +84,7 @@ void AirportManager::loadFromCSV(const string& filename) {
 
 		getline(ss, airport.iata, ','); // iata
 		airport.iata = trim(airport.iata);
-		cout << "DEBUG IATA: " << airport.iata << endl;
+		cout << "IATA RAW: [" << airport.iata << "]" << endl; //looking for errors 
 	
 		getline(ss, column, ','); //skip gps column
 
