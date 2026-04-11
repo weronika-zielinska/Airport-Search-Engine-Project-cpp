@@ -19,22 +19,16 @@ int main()
 	int choice;
 
 	do {
-		cout << "\n ~*~*~*~*~ Airport Serch Engine ~*~*~*~*~\n";
-		cout << " 1. Search airports by Country" << endl;
+		cout << "\n ~*~*~*~*~ AIRPORT SEARCH ENGINE ~*~*~*~*~\n";
+		cout << " 1. Search airports by country" << endl;
 		cout << " 2. Search airports by name" << endl;
 		cout << " 3. Search by IATA code" << endl;
 		cout << " 4. Display all airports" << endl;
 		cout << " 5. Count airports by type" << endl;
 		cout << " 6. Add new airport" << endl; 
 		cout << " 7. Save changes to CSV file" << endl; // you can add few airports and after just save all to csv
-		cout << " 8. Sort airports by name" << endl;
-		cout << " 9. Sort airports by country" << endl;
-		cout << " 10. Sort airports by type" << endl;
-		cout << " 11. Sort airports by elevation" << endl;
-		cout << " 12. Highest elevation airport" << endl;
-		cout << " 13. Lowest elevation airport" << endl;
-		cout << " 14. Show airports with missing IATA codes" << endl;
-		cout << " 15. Exit" << endl;
+		cout << " 8. Advanced options" << endl;
+		cout << " 9. Exit" << endl;
 		cout << "Enter your choice: " << endl;
 		cin >> choice;
 
@@ -81,50 +75,76 @@ int main()
 			manager.saveToCSV("airport-codes-updated.csv");
 			break;
 
-		case 8:
-				manager.sortByName();
-				manager.printFirstN(5);
-				break;
-			
+		case 8: {
+			int advChoice;
+
+			do {
+				cout << " ~*~*~*~*~*~ ADVANCED OPTIONS ~*~*~*~*~ " << endl;;
+				cout << " 1. Sort airports by name" << endl;
+				cout << " 2. Sort airports by country" << endl;
+				cout << " 3. Sort airports by type" << endl;
+				cout << " 4. Sort airports by elevation" << endl;
+				cout << " 5. Highest elevation airport" << endl;
+				cout << " 6. Lowest elevation airport" << endl;
+				cout << " 7. Show airports with missing IATA codes" << endl;
+				cout << " 8. Back" << endl;
+				cout << " Enter your choice: ";
+				cin >> advChoice;
+
+				switch (advChoice) {
+				case 1:
+					manager.sortByName();
+					manager.printFirstN(5);
+					break;
+
+				case 2:
+					manager.sortByCountry();
+					manager.printFirstN(5);
+					break;
+
+				case 3:
+					manager.sortByType();
+					manager.printFirstN(5);
+					break;
+
+				case 4:
+					manager.sortByElevation();
+					manager.printFirstN(5);
+					break;
+
+				case 5:
+					manager.highestElevation();
+					break;
+
+				case 6:
+					manager.lowestElevation();
+					break;
+
+				case 7:
+					manager.missingIATA();
+					break;
+
+				case 8:
+					cout << "Returning to main menu..." << endl;
+					break;
+
+				default:
+					cout << "Invalid choice!" << endl; 
+				}
+			} while (advChoice != 8);
+			break;
+		}
+
 		case 9:
-			manager.sortByCountry();
-			manager.printFirstN(5);
-			break;
-
-		case 10:
-			manager.sortByType();
-			manager.printFirstN(5);
-			break;
-
-		case 11:
-			manager.sortByElevation();
-			manager.printFirstN(5);
-			break;
-
-		case 12:
-			manager.highestElevation();
-			break;
-
-		case 13:
-			manager.lowestElevation();
-			break;
-
-		case 14:
-			manager.missingIATA();
-			break;
-		
-		case 15:
 			cout << " Exiting program..." << "\n" << "Thank you!" << endl;
 			break;
-
-
 
 		default:
 			cout << "Invalid choice!" << endl;
 		}
 
 	}
-			while (choice != 8);
+			while (choice != 9);
 
 			return 0;
 
