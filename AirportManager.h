@@ -41,6 +41,7 @@ public:
 	void sortByCountry();
 	void sortByType();
 	void sortByElevation();
+	void highestElevation();
 
 
 };
@@ -313,4 +314,22 @@ void AirportManager::sortByElevation() {
 		[](Airport a, Airport b) {
 			return a.elevation < b.elevation;
 		});
+}
+
+void AirportManager::highestElevation() {
+
+	if (airports.empty()) {
+		cout << "No airports loaded." << endl;
+		return;
+	}
+
+	Airport highest = airports[0]; //bierzemy pierwsze lotnisko i porownyjemy z kolejnym
+
+	for (const auto& airport : airports) {
+		if (airport.elevation > highest.elevation) {
+			highest = airport; // zapisujemy najwyzsze
+		}
+	}
+	cout << "Highest elevation airport: " << "\n";
+	highest.display();
 }

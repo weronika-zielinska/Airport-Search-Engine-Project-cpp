@@ -31,7 +31,8 @@ int main()
 		cout << " 9. Sort airports by country" << endl;
 		cout << " 10. Sort airports by type" << endl;
 		cout << " 11. Sort airports by elevation" << endl;
-		cout << " 12. Exit" << endl;
+		cout << " 12. Highest elevation airport" << endl;
+		cout << " 13. Exit" << endl;
 		cout << "Enter your choice: " << endl;
 		cin >> choice;
 
@@ -97,8 +98,12 @@ int main()
 			manager.sortByElevation();
 			manager.printFirstN(5);
 			break;
-		
+
 		case 12:
+			manager.highestElevation();
+			break;
+		
+		case 13:
 			cout << " Exiting program..." << "\n" << "Thank you!" << endl;
 			break;
 
