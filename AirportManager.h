@@ -36,6 +36,7 @@ public:
 	void countByType();
 	void addAirport();
 	void saveToCSV(const string& filename);
+	void printFirstN(int n);
 
 
 };
@@ -269,4 +270,11 @@ void AirportManager::saveToCSV(const string& filename) {
 
 	file.close();
 	cout << "Data saved successfully!" << endl;
+}
+
+void AirportManager::printFirstN(int n) {  //wypisuje pierwsze N lotnisk
+
+	for (int i = 0; i < n && i < airports.size(); i++) {
+		sirports[i].display();
+	}
 }
