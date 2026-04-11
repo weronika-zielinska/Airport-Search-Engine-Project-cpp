@@ -30,10 +30,12 @@ public:
 		}
 	}
 
-	void searchByCountry(const string& countryCode);
+	void searchByCountry(const string& countryCode);  //deklaracje
 	void searchByName(const string& namePart);
 	void searchByIATA(const string& iataCode);
 	void countByType();
+	void addAirport();
+
 
 };
 
@@ -175,4 +177,44 @@ void AirportManager::countByType() { // using map - key-value container
 	for (const auto& pair : counts) { //wez kazda pare z mapy counts
 		cout << pair.first << ": " << pair.second << endl; //dostep do pierwszewgo i drugiego elementu pary
 	}
+}
+
+void AirportManager::addAirport() {
+
+	Airport airport;
+
+	cout << "~*~*~*~*~*~*~*~ ADD NEW AIRPORT ~*~*~*~*~*~*~*~" << endl;
+	cout << "Enter ident: ";
+	cin >> airport.ident;  //cin uzywam do prostych danych bez spacji i przecinkow
+
+	cout << "Entery type: ";
+	cin >> airport.type;
+
+	cin.ignore(); //czysci bufor/enter z poprzedniego cin bez tego getline nie dziala
+
+	cout << "Enter name: ";
+	getline(cin, airport.name); // getline(..) to tekstow ze spacjami
+
+	cout << "Enter country code: ";
+	cin >> airport.country;
+
+	cin.ignore(); 
+
+	cout << "Enter municipality: ";
+	getline(cin, airport.municipality);
+
+	cout << "Enter IATA code: ";
+	cin >> airport.iata;
+
+	cout << "Enter latitude: ";
+	cin >> airport.latitude;
+
+	cout << "Enter longitude: ";
+	cin >> airport.longitude;
+
+	//dodanie nowe lotkisko do vectora
+	airports.push_back(airport);
+
+	cout << "~*~*~*~*~*~*~*~ Airport added successfully! ~*~*~*~*~*~*~*~" << endl;
+
 }

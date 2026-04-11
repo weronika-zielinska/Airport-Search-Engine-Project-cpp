@@ -25,7 +25,8 @@ int main()
 		cout << " 3. Search by IATA code" << endl;
 		cout << " 4. Display all airports" << endl;
 		cout << " 5. Count airports by type" << endl;
-		cout << " 6. Exit" << endl;
+		cout << " 6. Add new airport" << endl;
+		cout << " 7. Exit" << endl;
 		cout << "Enter your choice: " << endl;
 		cin >> choice;
 
@@ -63,8 +64,12 @@ int main()
 		case 5:
 			manager.countByType();
 			break;
-		
+
 		case 6:
+			manager.addAirport();
+			break;
+		
+		case 7:
 			cout << " Exiting program..." << "\n" << "Thank you!" << endl;
 			break;
 
