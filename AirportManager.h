@@ -245,7 +245,7 @@ void AirportManager::saveToCSV(const string& filename) {
 	ofstream file(filename);
 
 		if (!file.is_open()) {
-			cout << "Error! File was not saved." << endl;
+			cout << "Error! File could not be opened for saving." << endl;
 			return;
 		}
 	//zapis naglowka csv
@@ -254,17 +254,17 @@ void AirportManager::saveToCSV(const string& filename) {
 	for (const auto& airport : airports) {
 		file << airport.ident << ",";
 		file << airport.type << ",";
-		file << airport.name << ",";
+		file << "\"" << airport.name << "\"" << ","; 
 		file << airport.elevation << ",";
 		file << airport.continent << ",";
 		file << airport.country << ",";
 		file << airport.region << ",";
-		file << airport.municipality << ",";
+		file << "\"" << airport.municipality << "\"" << ",";
 		file << airport.icao << ",";
 		file << airport.iata << ",";
 		file << airport.gps << ",";
 		file << airport.localCode << ",";
-		file << airport.latitude << "," << airport.longitude << endl;
+		file << "\"" << airport.latitude << "," << airport.longitude << "\"" << endl;
 	}
 
 	file.close();
