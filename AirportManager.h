@@ -6,6 +6,7 @@
 #include "Airport.h"
 #include <algorithm>
 #include <map>
+#include <set>
 
 using namespace std;
 
@@ -47,7 +48,7 @@ public:
 	void deleteByIdent(const string& ident);
 	multimap <string, Airport> groupByMunicipality() const;
 	void showByMunicipality(const string& municipality) const;
-
+	void showUniqueTypes() const;
 
 };
 
@@ -399,14 +400,15 @@ void AirportManager::deleteByIdent(const string& ident) {
 	}
 }
 //multimap pozwala miec duzo rekordow pod tym samym kluczem
+// map to struktura danych klucz i wartosc np age["Anna"] =20
 multimap < string, Airport> AirportManager::groupByMunicipality() const {
-	multimap <string, Airport> grouped;
+	multimap <string, Airport> grouped; // tworzymy multimap grouped, pierwsza wartosc to string, druga airport
 
 	for (const auto& airport : airports) {
-		grouped.insert({ airport.municipality, airport });
+		grouped.insert({ airport.municipality, airport }); // dodaje element do map
 	}
 
-	return grouped;
+	return grouped; // zwracamy gotowa mape z danymi
 }
 
 void AirportManager::showByMunicipality(const string& municipality) const {
@@ -414,8 +416,10 @@ void AirportManager::showByMunicipality(const string& municipality) const {
 	multimap <string, Airport> grouped = groupByMunicipality();
 
 	auto range = grouped.equal_range(municipality); // zwraca zakres wszystkich rekodrow dla danego klucza
+	// ato zgaduje typ, range to para iteratorw(poczatek, koniec)
 	bool found = false;
 
+	// w petli przechodze po wszystkich danych dla tego municipality
 	for (auto it = range.first; it != range.second; ++it) {
 		it->second.display(); // first - key, second - value
 		found = true;
@@ -424,4 +428,20 @@ void AirportManager::showByMunicipality(const string& municipality) const {
 	if (!found) {
 		cout << "No airports found in municipality: " << municipality << endl;
 	}
+}
+
+void AirportManager::showUniqueTypes() const {
+
+	set <string> types; // ustawiamy nowy set - zawsze ma unikalne wartosci, nie powtarza
+
+	for (const auto& airport : airports) {
+		types.insert(airport.type); // dodajemy typ lotniska, jak juz istenie to ignoruje
+	}
+
+	cout << "Unique airport types: " << endl;
+
+	for (const auto& type : types) { //przechodzimy po unikalnych tgypach w petli
+		cout << type << endl;
+	}
+
 }

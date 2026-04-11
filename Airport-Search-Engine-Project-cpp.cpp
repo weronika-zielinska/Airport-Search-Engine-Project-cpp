@@ -109,7 +109,8 @@ int main()
 				cout << " 6. Lowest elevation airport" << endl;
 				cout << " 7. Show airports with missing IATA codes" << endl;
 				cout << " 8. Show airports by municipality" << endl;
-				cout << " 9. Back" << endl;
+				cout << " 9. Show unique airport types: " << endl;
+				cout << " 10. Back to main menu" << endl;
 				cout << " Enter your choice: ";
 				cin >> advChoice;
 
@@ -163,15 +164,19 @@ int main()
 					manager.showByMunicipality(municipality);
 					break;
 				}
+					  
+				case 9: 
+					manager.showUniqueTypes();
+					break;
 
-				case 9:
+				case 10:
 					cout << "Returning to main menu..." << endl;
 					break;
 
 				default:
 					cout << "Invalid choice!" << endl; 
 				}
-			} while (advChoice != 9);
+			} while (advChoice != 10);
 			break;
 		}
 
