@@ -27,7 +27,8 @@ int main()
 		cout << " 5. Count airports by type" << endl;
 		cout << " 6. Add new airport" << endl; 
 		cout << " 7. Save changes to CSV file" << endl; // you can add few airports and after just save all to csv
-		cout << " 8. Exit" << endl;
+		cout << " 8. Sort airports by name" << endl;
+		cout << " 9. Exit" << endl;
 		cout << "Enter your choice: " << endl;
 		cin >> choice;
 
@@ -73,8 +74,13 @@ int main()
 		case 7: 
 			manager.saveToCSV("airport-codes-updated.csv");
 			break;
-		
+
 		case 8:
+				manager.sortByName();
+				manager.printFirstN(5);
+				break;
+		
+		case 9:
 			cout << " Exiting program..." << "\n" << "Thank you!" << endl;
 			break;
 

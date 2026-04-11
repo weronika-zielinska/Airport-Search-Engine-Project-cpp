@@ -37,6 +37,7 @@ public:
 	void addAirport();
 	void saveToCSV(const string& filename);
 	void printFirstN(int n);
+	void sortByName();
 
 
 };
@@ -275,6 +276,14 @@ void AirportManager::saveToCSV(const string& filename) {
 void AirportManager::printFirstN(int n) {  //wypisuje pierwsze N lotnisk
 
 	for (int i = 0; i < n && i < airports.size(); i++) {
-		sirports[i].display();
+		airports[i].display();
 	}
+}
+
+void AirportManager::sortByName() {
+
+	sort(airports.begin(), airports.end(), // sort sortuyje vector
+		[](Airport a, Airport b) {  // lambda [] porownuje dwa lotniska
+			return a.name < b.name; // warunek sortuje alfabetycznie
+		});
 }
