@@ -45,6 +45,9 @@ public:
 	void lowestElevation();
 	void missingIATA();
 	void deleteByIdent(const string& ident);
+	multimap <string, Airport> groupByMunicipality() const;
+	void showByMunicipality(const string& municipality) const;
+
 
 };
 
@@ -393,5 +396,32 @@ void AirportManager::deleteByIdent(const string& ident) {
 	}
 	else {
 		cout << "No airport found with ident: " << ident << endl;
+	}
+}
+//multimap pozwala miec duzo rekordow pod tym samym kluczem
+multimap < string, Airport> AirportManager::groupByMunicipality() const {
+	multimap <string, Airport> grouped;
+
+	for (const auto& airport : airports) {
+		grouped.insert({ airport.municipality, airport });
+	}
+
+	return grouped;
+}
+
+void AirportManager::showByMunicipality(const string& municipality) const {
+
+	multimap <string, Airport> grouped = groupByMunicipality();
+
+	auto range = grouped.equal_range(municipality); // zwraca zakres wszystkich rekodrow dla danego klucza
+	bool found = false;
+
+	for (auto it = range.first; it != range.second; ++it) {
+		it->second.display(); // first - key, second - value
+		found = true;
+	}
+
+	if (!found) {
+		cout << "No airports found in municipality: " << municipality << endl;
 	}
 }

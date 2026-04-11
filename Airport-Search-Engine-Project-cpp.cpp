@@ -108,7 +108,8 @@ int main()
 				cout << " 5. Highest elevation airport" << endl;
 				cout << " 6. Lowest elevation airport" << endl;
 				cout << " 7. Show airports with missing IATA codes" << endl;
-				cout << " 8. Back" << endl;
+				cout << " 8. Show airports by municipality" << endl;
+				cout << " 9. Back" << endl;
 				cout << " Enter your choice: ";
 				cin >> advChoice;
 
@@ -118,6 +119,8 @@ int main()
 					cout << "Invalid input. Please enter a number." << endl;
 					continue;
 				}
+
+				cin.ignore(1000, '\n');
 
 				switch (advChoice) {
 				case 1:
@@ -152,14 +155,23 @@ int main()
 					manager.missingIATA();
 					break;
 
-				case 8:
+				case 8: {
+					string municipality;
+					cout << "Enter municipality: ";
+					getline(cin, municipality);
+
+					manager.showByMunicipality(municipality);
+					break;
+				}
+
+				case 9:
 					cout << "Returning to main menu..." << endl;
 					break;
 
 				default:
 					cout << "Invalid choice!" << endl; 
 				}
-			} while (advChoice != 8);
+			} while (advChoice != 9);
 			break;
 		}
 
