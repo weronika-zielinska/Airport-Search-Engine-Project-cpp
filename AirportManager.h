@@ -376,6 +376,7 @@ void AirportManager::deleteByIdent(const string& ident) {
 	bool found = false;
 
 	for (auto it = airports.begin(); it != airports.end(); ) {
+		// it to iterator - wskazuje na element w vektorze
 		
 			if (it->ident == ident) { // wez aktualny airport sprawdz jego ident
 				it = airports.erase(it); // erase(it)usun element z veectora
