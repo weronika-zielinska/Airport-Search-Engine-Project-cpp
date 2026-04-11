@@ -38,6 +38,7 @@ public:
 	void saveToCSV(const string& filename);
 	void printFirstN(int n);
 	void sortByName();
+	void sortByCountry();
 
 
 };
@@ -285,5 +286,13 @@ void AirportManager::sortByName() {
 	sort(airports.begin(), airports.end(), // sort sortuyje vector
 		[](Airport a, Airport b) {  // lambda [] porownuje dwa lotniska
 			return a.name < b.name; // warunek sortuje alfabetycznie
+		});
+}
+
+void AirportManager::sortByCountry() {
+
+	sort(airports.begin(), airports.end(), //sortuje vector od pierwszego elementu do ostatiego
+		[](Airport a, Airport b) {
+			return a.country < b.country;
 		});
 }
