@@ -110,7 +110,8 @@ int main()
 				cout << " 7. Show airports with missing IATA codes" << endl;
 				cout << " 8. Show airports by municipality" << endl;
 				cout << " 9. Show unique airport types: " << endl;
-				cout << " 10. Back to main menu" << endl;
+				cout << " 10. Count airports by country" << endl;
+				cout << " 11. Back to main menu" << endl;
 				cout << " Enter your choice: ";
 				cin >> advChoice;
 
@@ -169,14 +170,18 @@ int main()
 					manager.showUniqueTypes();
 					break;
 
-				case 10:
+				case 10: 
+					manager.countByCountry();
+					break;
+
+				case 11:
 					cout << "Returning to main menu..." << endl;
 					break;
 
 				default:
 					cout << "Invalid choice!" << endl; 
 				}
-			} while (advChoice != 10);
+			} while (advChoice != 11);
 			break;
 		}
 

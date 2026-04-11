@@ -49,6 +49,7 @@ public:
 	multimap <string, Airport> groupByMunicipality() const;
 	void showByMunicipality(const string& municipality) const;
 	void showUniqueTypes() const;
+	void countByCountry() const;
 
 };
 
@@ -444,4 +445,20 @@ void AirportManager::showUniqueTypes() const {
 		cout << type << endl;
 	}
 
+}
+
+void AirportManager::countByCountry() const {
+
+	map<string, int> counts; // string - county, int - number
+
+	for (const auto& airport : airports) {
+		counts[airport.country]++; // jesli kraj nie istnieje, tworzy go z wartoscia 0 i potem zwieksza o 1
+	}
+
+	cout << "Airports by country: " << endl;
+
+	for (const auto& pair : counts) {
+		cout << pair.first << ": " << pair.second << endl;
+	//pair.first key-country, pair.second value-number
+	}
 }
