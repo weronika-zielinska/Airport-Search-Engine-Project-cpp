@@ -33,7 +33,8 @@ int main()
 		cout << " 11. Sort airports by elevation" << endl;
 		cout << " 12. Highest elevation airport" << endl;
 		cout << " 13. Lowest elevation airport" << endl;
-		cout << " 14. Exit" << endl;
+		cout << " 14. Show airports with missing IATA codes" << endl;
+		cout << " 15. Exit" << endl;
 		cout << "Enter your choice: " << endl;
 		cin >> choice;
 
@@ -107,8 +108,12 @@ int main()
 		case 13:
 			manager.lowestElevation();
 			break;
-		
+
 		case 14:
+			manager.missingIATA();
+			break;
+		
+		case 15:
 			cout << " Exiting program..." << "\n" << "Thank you!" << endl;
 			break;
 

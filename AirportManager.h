@@ -43,6 +43,7 @@ public:
 	void sortByElevation();
 	void highestElevation();
 	void lowestElevation();
+	void missingIATA();
 
 };
 
@@ -350,4 +351,21 @@ void AirportManager::lowestElevation() {
 	}
 	cout << "Lowest elevation airport: " << endl;
 	lowest.display();
+}
+
+void AirportManager::missingIATA() {
+
+	bool found = false;
+
+	for (const auto& airport : airports) {
+
+		if (airport.iata.empty()) { // sprawdzamy czy iata puste
+			airport.display();
+			found = true;
+		}
+	}
+
+	if (!found) {
+		cout << "All airports have IATA codes." << endl;
+	}
 }
