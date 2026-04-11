@@ -42,7 +42,7 @@ public:
 	void sortByType();
 	void sortByElevation();
 	void highestElevation();
-
+	void lowestElevation();
 
 };
 
@@ -332,4 +332,22 @@ void AirportManager::highestElevation() {
 	}
 	cout << "Highest elevation airport: " << "\n";
 	highest.display();
+}
+
+void AirportManager::lowestElevation() {
+
+	if (airports.empty()) {
+		cout << "No airports loaded." << endl;
+		return;
+	}
+
+	Airport lowest = airports[0];
+
+	for (const auto& airport : airports) {
+		if (airport.elevation < lowest.elevation) {
+			lowest = airport;
+		}
+	}
+	cout << "Lowest elevation airport: " << endl;
+	lowest.display();
 }
