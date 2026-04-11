@@ -32,6 +32,17 @@ int main()
 		cout << "Enter your choice: " << endl;
 		cin >> choice;
 
+		//uzywamy metod z <iostream> zeby dodac validation
+		if (cin.fail()) { // sprawdza czy wpisana wartosc byla zla, jak zla to wchodzi w stan bledu
+			cin.clear(); //resetuje stan bledu
+			cin.ignore(1000, '\n'); // wyrzuca z bufora zle dane do konca linii
+			// 1000 - ignoruje do 1000 znakow, max liczba znakow do usuniecia
+			// \n - do momentu napotkania na enter, nowej linni
+			cout << "Invalid input. Please enter a number." << endl;
+			continue;
+		}
+		cin.ignore(); // jak poprawna liczba to ignoruje enter
+
 		switch (choice) { //wybiera co zrobic w zaleznosci od opcji
 		case 1: {
 			string country;
@@ -90,6 +101,13 @@ int main()
 				cout << " 8. Back" << endl;
 				cout << " Enter your choice: ";
 				cin >> advChoice;
+
+				if (cin.fail()) {
+					cin.clear();
+					cin.ignore(1000, '\n');
+					cout << "Invalid input. Please enter a number." << endl;
+					continue;
+				}
 
 				switch (advChoice) {
 				case 1:
