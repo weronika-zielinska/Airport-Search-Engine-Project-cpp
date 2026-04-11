@@ -35,7 +35,7 @@ public:
 	void searchByIATA(const string& iataCode);
 	void countByType();
 	void addAirport();
-	void safeToCSV(const string& filename)();
+	void saveToCSV(const string& filename);
 
 
 };
@@ -225,7 +225,7 @@ void AirportManager::addAirport() {
 	cout << "Enter GPS code: ";
 	cin >> airport.gps;
 
-	cout << "Enter local code: "
+	cout << "Enter local code: ";
 		cin >> airport.localCode;
 
 	cout << "Enter latitude: ";
@@ -242,21 +242,21 @@ void AirportManager::addAirport() {
 }
 
 void AirportManager::saveToCSV(const string& filename) {
-	ofstream file(filename)
+	ofstream file(filename);
 
 		if (!file.is_open()) {
-			cout << "Error! File its not saved" << endl;
+			cout << "Error! File was not saved." << endl;
 			return;
 		}
 	//zapis naglowka csv
 	file << "ident,type,name,elevation_ft,continent,iso_country,iso_region,municipality,icao_code,iata_code,gps_code,local_code,coordinates" << endl;
 
-	for (const auto& sirport : airports) {
+	for (const auto& airport : airports) {
 		file << airport.ident << ",";
 		file << airport.type << ",";
-		file << airport.name < ",";
+		file << airport.name << ",";
 		file << airport.elevation << ",";
-		file << airport.cintinent << ",";
+		file << airport.continent << ",";
 		file << airport.country << ",";
 		file << airport.region << ",";
 		file << airport.municipality << ",";
@@ -268,5 +268,5 @@ void AirportManager::saveToCSV(const string& filename) {
 	}
 
 	file.close();
-	cout << "Data saved succesfully!" << endl;
+	cout << "Data saved successfully!" << endl;
 }

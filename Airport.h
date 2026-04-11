@@ -32,7 +32,7 @@ public:
 			<< "| GPS: " << gps
 			<< "| Local: " << localCode
 			<< "| Elevation: " << elevation
-			<< "| Coordinates: " << latitude << "," << longtitude
+			<< "| Coordinates: " << latitude << "," << longitude
 			<< endl;
 
 	}
