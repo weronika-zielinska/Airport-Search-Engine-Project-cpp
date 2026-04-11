@@ -35,6 +35,7 @@ public:
 	void searchByIATA(const string& iataCode);
 	void countByType();
 	void addAirport();
+	void safeToCSV(const string& filename)();
 
 
 };
@@ -75,22 +76,25 @@ void AirportManager::loadFromCSV(const string& filename) {
 				airport.elevation = 0;
 			}
 		}
+		else {
+			airport.elevation = 0;
+		}
 
-		getline(ss, column, ','); //skip continent column
+		getline(ss, airport.continent, ','); //continent 
 
 		getline(ss, airport.country, ','); // country
 
-		getline(ss, column, ','); // skip region column
+		getline(ss, airport.region, ','); //  region 
 
 		getline(ss, airport.municipality, ','); //municipality
 
-		getline(ss, column, ','); // skip ICAO column,
+		getline(ss, airport.icao, ','); //ICAO 
 
 		getline(ss, airport.iata, ','); // iata
 	
-		getline(ss, column, ','); //skip gps column
+		getline(ss, airport.gps, ','); //gps
 
-		getline(ss, column, ','); // skip local column
+		getline(ss, airport.localCode, ','); // local code
 
 		//coordinates 
 		getline(ss, column, ',');
@@ -195,16 +199,34 @@ void AirportManager::addAirport() {
 	cout << "Enter name: ";
 	getline(cin, airport.name); // getline(..) to tekstow ze spacjami
 
+	cout << "Enter elevation (ft): ";
+	cin >> airport.elevation;
+
+	cout << "Enter continent: ";
+	cin >> airport.continent;
+
 	cout << "Enter country code: ";
 	cin >> airport.country;
+
+	cout << "Enter region code: ";
+	cin >> airport.region;
 
 	cin.ignore(); 
 
 	cout << "Enter municipality: ";
 	getline(cin, airport.municipality);
 
+	cout << "Enter ICAO code: ";
+	cin >> airport.icao;
+
 	cout << "Enter IATA code: ";
 	cin >> airport.iata;
+
+	cout << "Enter GPS code: ";
+	cin >> airport.gps;
+
+	cout << "Enter local code: "
+		cin >> airport.localCode;
 
 	cout << "Enter latitude: ";
 	cin >> airport.latitude;
@@ -217,4 +239,34 @@ void AirportManager::addAirport() {
 
 	cout << "~*~*~*~*~*~*~*~ Airport added successfully! ~*~*~*~*~*~*~*~" << endl;
 
+}
+
+void AirportManager::saveToCSV(const string& filename) {
+	ofstream file(filename)
+
+		if (!file.is_open()) {
+			cout << "Error! File its not saved" << endl;
+			return;
+		}
+	//zapis naglowka csv
+	file << "ident,type,name,elevation_ft,continent,iso_country,iso_region,municipality,icao_code,iata_code,gps_code,local_code,coordinates" << endl;
+
+	for (const auto& sirport : airports) {
+		file << airport.ident << ",";
+		file << airport.type << ",";
+		file << airport.name < ",";
+		file << airport.elevation << ",";
+		file << airport.cintinent << ",";
+		file << airport.country << ",";
+		file << airport.region << ",";
+		file << airport.municipality << ",";
+		file << airport.icao << ",";
+		file << airport.iata << ",";
+		file << airport.gps << ",";
+		file << airport.localCode << ",";
+		file << airport.latitude << "," << airport.longitude << endl;
+	}
+
+	file.close();
+	cout << "Data saved succesfully!" << endl;
 }
