@@ -27,8 +27,9 @@ int main()
 		cout << " 5. Count airports by type" << endl;
 		cout << " 6. Add new airport" << endl; 
 		cout << " 7. Save changes to CSV file" << endl; // you can add few airports and after just save all to csv
-		cout << " 8. Advanced options" << endl;
-		cout << " 9. Exit" << endl;
+		cout << " 8. Delete airport drom CSV by ident" << endl;
+		cout << " 9. Advanced options" << endl;
+		cout << " 10. Exit" << endl;
 		cout << "Enter your choice: " << endl;
 		cin >> choice;
 
@@ -87,6 +88,15 @@ int main()
 			break;
 
 		case 8: {
+			string id;
+			cout << "Enter airport ident to delete: ";
+			cin >> id;
+
+			manager.deleteByIdent(id);
+			break;
+		}
+
+		case 9: {
 			int advChoice;
 
 			do {
@@ -153,7 +163,7 @@ int main()
 			break;
 		}
 
-		case 9:
+		case 10:
 			cout << " Exiting program..." << "\n" << "Thank you!" << endl;
 			break;
 
@@ -162,7 +172,7 @@ int main()
 		}
 
 	}
-			while (choice != 9);
+			while (choice != 10);
 
 			return 0;
 

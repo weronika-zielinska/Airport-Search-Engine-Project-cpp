@@ -44,6 +44,7 @@ public:
 	void highestElevation();
 	void lowestElevation();
 	void missingIATA();
+	void deleteByIdent(const string& ident);
 
 };
 
@@ -367,5 +368,29 @@ void AirportManager::missingIATA() {
 
 	if (!found) {
 		cout << "All airports have IATA codes." << endl;
+	}
+}
+
+void AirportManager::deleteByIdent(const string& ident) {
+
+	bool found = false;
+
+	for (auto it = airports.begin(); it != airports.end(); ) {
+		
+			if (it->ident == ident) { // wez aktualny airport sprawdz jego ident
+				it = airports.erase(it); // erase(it)usun element z veectora
+				// it = erase(it) przechodzi do nastepnego elementu
+				found = true;
+			}
+			else {
+				++it;
+			}
+	}
+
+	if (found) {
+		cout << "Airport deleted successfully!" << endl;
+	}
+	else {
+		cout << "No airport found with ident: " << ident << endl;
 	}
 }
