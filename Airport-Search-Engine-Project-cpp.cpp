@@ -29,7 +29,9 @@ int main()
 		cout << " 7. Save changes to CSV file" << endl; // you can add few airports and after just save all to csv
 		cout << " 8. Sort airports by name" << endl;
 		cout << " 9. Sort airports by country" << endl;
-		cout << " 10. Exit" << endl;
+		cout << " 10. Sort airports by type" << endl;
+		cout << " 11. Sort airports by elevation" << endl;
+		cout << " 12. Exit" << endl;
 		cout << "Enter your choice: " << endl;
 		cin >> choice;
 
@@ -85,8 +87,18 @@ int main()
 			manager.sortByCountry();
 			manager.printFirstN(5);
 			break;
-		
+
 		case 10:
+			manager.sortByType();
+			manager.printFirstN(5);
+			break;
+
+		case 11:
+			manager.sortByElevation();
+			manager.printFirstN(5);
+			break;
+		
+		case 12:
 			cout << " Exiting program..." << "\n" << "Thank you!" << endl;
 			break;
 

@@ -39,6 +39,8 @@ public:
 	void printFirstN(int n);
 	void sortByName();
 	void sortByCountry();
+	void sortByType();
+	void sortByElevation();
 
 
 };
@@ -294,5 +296,21 @@ void AirportManager::sortByCountry() {
 	sort(airports.begin(), airports.end(), //sortuje vector od pierwszego elementu do ostatiego
 		[](Airport a, Airport b) {
 			return a.country < b.country;
+		});
+}
+
+void AirportManager::sortByType() {
+
+	sort(airports.begin(), airports.end(),
+		[](Airport a, Airport b) {
+			return a.type < b.type;
+		});
+}
+
+void AirportManager::sortByElevation() {
+
+	sort(airports.begin(), airports.end(),
+		[](Airport a, Airport b) {
+			return a.elevation < b.elevation;
 		});
 }
