@@ -27,6 +27,17 @@ string trim(const string& str) { //usuwamy spacje z poczatku i konca
 	return str.substr(first, (last - first + 1));
 }
 
+string removeQuotes(string text) {  //daleting saved extra quotations
+	if (!text.empty() && text.front() == '"') {
+		text.erase(0, 1);
+	}
+
+	if (!text.empty() && text.back() == '"') {
+		text.pop_back();
+	}
+	return text;
+}
+
 class AirportManager {  // klasa zarzajaca wszystkimi lotniskami
 public:
 	vector <Airport> airports; // lista wszystkich lotnisk
@@ -87,6 +98,7 @@ void AirportManager::loadFromCSV(const string& filename) {
 		getline(ss, airport.type, ',');  //type,  read csv up to comma and save in airport.type
 		
 		getline(ss, airport.name, ','); // name
+		airport.name = removeQuotes(airport.name);
 
 		getline(ss, column, ','); //elevation
 		if (!column.empty()) {
@@ -108,6 +120,7 @@ void AirportManager::loadFromCSV(const string& filename) {
 		getline(ss, airport.region, ','); //  region 
 
 		getline(ss, airport.municipality, ','); //municipality
+		airport.municipality = removeQuotes(airport.municipality);
 
 		getline(ss, airport.icao, ','); //ICAO 
 
@@ -456,7 +469,12 @@ void AirportManager::deleteByIdent(const string& ident) {
 	}
 
 	if (found) {
-		cout << "Airport deleted successfully!" << endl;
+		cout << "\n============================================\n";
+		cout << "|                                          |\n";
+		cout << "|  *~* Airport deleted successfully! *~*   |\n";
+		cout << "|                                          |\n";
+		cout << "============================================\n";
+		cout << "" << endl;
 	}
 	else {
 		cout << "------- No airport found with ident: " << ident <<" ------" << endl;
