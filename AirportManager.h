@@ -110,8 +110,19 @@ void AirportManager::loadFromCSV(const string& filename) {
 		getline(ss, airport.localCode, ','); // local code
 
 		//coordinates 
-		getline(ss, column, ',');
-		size_t commaPos = column.find(','); //looking for forst comma in row
+		getline(ss, column);
+
+
+		//remove quotes if they exist 
+		if (!column.empty() && column.front() == '"') {
+			column.erase(0, 1);
+		}
+
+		if (!column.empty() && column.back() == '"') {
+			column.pop_back();
+		}
+
+		size_t commaPos = column.find(',');
 
 		if (commaPos != string::npos) { //checking if there is comma, string::npos =? - means not found
 			string lat = column.substr(0, commaPos); //take first coordinate from position 0 to comma
@@ -125,6 +136,10 @@ void AirportManager::loadFromCSV(const string& filename) {
 				airport.latitude = 0;
 				airport.longitude = 0;
 			}
+		}
+		else {
+			airport.latitude = 0;
+			airport.longitude = 0;
 		}
 		airports.push_back(airport); //add airport to list vector<Airport> airports
 
