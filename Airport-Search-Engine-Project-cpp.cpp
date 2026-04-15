@@ -87,7 +87,7 @@ int main()
 			break;
 
 		case 7: 
-			manager.saveToCSV("airport-codes-updated.csv");
+			manager.saveToCSV("airport-codes.csv");
 			break;
 
 		case 8: {

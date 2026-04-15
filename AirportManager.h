@@ -336,7 +336,13 @@ void AirportManager::saveToCSV(const string& filename) {
 	}
 
 	file.close();
-	cout << "Data saved successfully!" << endl;
+		cout << "\n========================================\n";
+	cout << "|                                      |\n";
+	cout << "|    *~* Data saved successfully *~*   |\n";
+	cout << "|                                      |\n";
+	cout << "|               Thank You!             |\n";
+	cout << "|                                      |\n";
+	cout << "========================================\n";
 }
 
 void AirportManager::printFirstN(int n) {  //wypisuje pierwsze N lotnisk
@@ -453,7 +459,7 @@ void AirportManager::deleteByIdent(const string& ident) {
 		cout << "Airport deleted successfully!" << endl;
 	}
 	else {
-		cout << "No airport found with ident: " << ident << endl;
+		cout << "------- No airport found with ident: " << ident <<" ------" << endl;
 	}
 }
 //multimap pozwala miec duzo rekordow pod tym samym kluczem
