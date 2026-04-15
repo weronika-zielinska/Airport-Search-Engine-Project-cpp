@@ -40,7 +40,7 @@ int askResultLimit() {
 
 
 			switch (option) {
-			case1: return 5;
+			case 1: return 5;
 			case 2: return 10;
 			case 3: return 25;
 			case 4: return -1;
