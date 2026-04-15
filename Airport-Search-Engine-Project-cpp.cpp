@@ -56,7 +56,7 @@ int main()
 		case 2: {
 			string name; //nowy variables to szukania po nazwie
 			cout << "Enter part of airport name: ";
-			cin >> name;
+			getline(cin, name);
 
 			manager.searchByName(name);
 			break;
