@@ -143,12 +143,26 @@ int main()
 					getline(cin, type);
 
 					int option;
-					cout << "How many results do you want to see?" << "\n";
-					cout << "1. 5 results, \n2. 10 results \n3. 25 results \n4. All results" << endl;
-					cout << "Enter your choice (1/2/3/4): ";
-					cin >> option;
 
-					cin.ignore(1000, '\n');
+					do {
+						cout << "How many results do you want to see?" << "\n";
+						cout << "1. 5 results, \n2. 10 results \n3. 25 results \n4. All results" << endl;
+						cout << "Enter your choice (1/2/3/4): ";
+						cin >> option;
+
+						if (cin.fail()) {
+							cin.clear();
+							cin.ignore(1000, '\n');
+							cout << "Invalid input. Pleasze enetr number." << endl;
+							option = 0;
+							continue;
+						}
+						cin.ignore(1000, '\n');
+
+						if (option < 1 || option >4) {
+							cout << "Invalid choice. Please select number 1,2,3 or 4." << endl;
+						}
+					} while (option < 1 || option >4);
 
 					int limit;
 
@@ -157,7 +171,6 @@ int main()
 					case 2: limit = 10; break;
 					case 3: limit = 25; break;
 					case 4: limit = -1; break;
-					default: limit = 5;
 					}
 
 					manager.showByType(type, limit);
