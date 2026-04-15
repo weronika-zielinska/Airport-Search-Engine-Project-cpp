@@ -103,7 +103,7 @@ int main()
 				cout << " ~*~*~*~*~*~ ADVANCED OPTIONS ~*~*~*~*~ " << endl;;
 				cout << " 1. Sort airports by name" << endl;
 				cout << " 2. Sort airports by country" << endl;
-				cout << " 3. Sort airports by type" << endl;
+				cout << " 3. Filter airports by type and sort alphabetically" << endl;
 				cout << " 4. Sort airports by elevation" << endl;
 				cout << " 5. Highest elevation airport" << endl;
 				cout << " 6. Lowest elevation airport" << endl;
@@ -135,10 +135,34 @@ int main()
 					manager.printFirstN(5);
 					break;
 
-				case 3:
-					manager.sortByType();
-					manager.printFirstN(5);
+				case 3: {
+
+					string type;
+					cout << "Enter airport type:" << "\n";
+					cout << "(small_airport / medium_airport / large_airport / heliport / seaplane_base / balloonport) : ";
+					getline(cin, type);
+
+					int option;
+					cout << "How many results do you want to see?" << "\n";
+					cout << "1. 5 results, \n2. 10 results \n3. 25 results \n4. All results" << endl;
+					cout << "Enter your choice (1/2/3/4): ";
+					cin >> option;
+
+					cin.ignore(1000, '\n');
+
+					int limit;
+
+					switch (option) {
+					case 1: limit = 5; break;
+					case 2: limit = 10; break;
+					case 3: limit = 25; break;
+					case 4: limit = -1; break;
+					default: limit = 5;
+					}
+
+					manager.showByType(type, limit);
 					break;
+				}
 
 				case 4:
 					manager.sortByElevation();

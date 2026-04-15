@@ -58,6 +58,7 @@ public:
 	void showByMunicipality(const string& municipality) const;
 	void showUniqueTypes() const;
 	void countByCountry() const;
+	void showByType(const string& type, int limit) const;
 
 };
 
@@ -488,5 +489,41 @@ void AirportManager::countByCountry() const {
 	for (const auto& pair : counts) {
 		cout << pair.first << ": " << pair.second << endl;
 	//pair.first key-country, pair.second value-number
+	}
+}
+
+void AirportManager::showByType(const string& type, int limit) const {
+	string searchType = toLowerCase(type);
+	vector<Airport> filtered; //new list just to filtgered type
+
+	//filtering
+	for (const auto& airport : airports) {
+
+		if (toLowerCase(airport.type) == searchType) {
+			filtered.push_back(airport); //add only matching airports
+		}
+	}
+
+	//check if found someting
+	if (filtered.empty()) {
+		cout << "No airports found by type: " << type << endl;
+		return;
+	}
+
+	//sorting alphabetically by name
+	sort(filtered.begin(), filtered.end(),
+		[](const Airport& a, const Airport& b) { //
+			return a.name < b.name;
+		});
+	//showing
+	int count = 0;
+
+	for (const auto& airport : filtered) {
+		airport.display();
+		count++;
+
+		if (limit != -1 && count >= limit) {
+			break;
+		}
 	}
 }
