@@ -73,7 +73,6 @@ void AirportManager::loadFromCSV(const string& filename) {
 		string column; // to save one column of csv
 		Airport airport; //nowy obiekt airport
 
-
 		getline(ss, airport.ident, ','); //ident
 
 		getline(ss, airport.type, ',');  //type,  read csv up to comma and save in airport.type
@@ -110,20 +109,25 @@ void AirportManager::loadFromCSV(const string& filename) {
 		getline(ss, airport.localCode, ','); // local code
 
 		//coordinates 
-		getline(ss, column);
+		getline(ss, column); //czytaj z ss, zapisz do column
 
 
-		//remove quotes if they exist 
+		//column.empty - sprawddza czy string jest pusty true=pusty, false=zawartosc
+		//jesli string nie jest pusty, a pierwszy znak to "
 		if (!column.empty() && column.front() == '"') {
-			column.erase(0, 1);
+			column.erase(0, 1); //erase usuwa fragment tekstu - pierwszy"
 		}
-
+		//column.back zwraca ostatni znak stringa czyli "
 		if (!column.empty() && column.back() == '"') {
-			column.pop_back();
+			column.pop_back(); //usuwa ostatni znak
 		}
 
-		size_t commaPos = column.find(',');
+		//szukanie przecinka
+		//size_t - typ liczbowy uzywany do pozycji w string
+		//commaPos - zmienna pamieta gdzie jest przecinek
+		size_t commaPos = column.find(','); 
 
+		//sprawdzamy czy przecinek jest znaleziony
 		if (commaPos != string::npos) { //checking if there is comma, string::npos =? - means not found
 			string lat = column.substr(0, commaPos); //take first coordinate from position 0 to comma
 			string lon = column.substr(commaPos + 1); // take secon coordinate after comma
