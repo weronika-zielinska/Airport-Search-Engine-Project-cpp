@@ -56,7 +56,7 @@ int main()
 		case 2: {
 			string name; //nowy variables to szukania po nazwie
 			cout << "Enter part of airport name: ";
-			getline(cin, name);
+			getline(cin, name); // to search more than 1 word
 
 			manager.searchByName(name);
 			break;
