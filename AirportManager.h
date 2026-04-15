@@ -360,6 +360,13 @@ void AirportManager::saveToCSV(const string& filename) {
 
 void AirportManager::printFirstN(int n) {  //wypisuje pierwsze N lotnisk
 
+	if (n == -1) {
+		for (const auto& airport : airports) {
+			airport.display();
+		}
+		return;
+	}
+
 	for (int i = 0; i < n && i < airports.size(); i++) {
 		airports[i].display();
 	}

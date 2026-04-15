@@ -10,6 +10,45 @@
 # include "AirportManager.h"
 using namespace std;
 
+int askResultLimit() {
+	int option;
+
+	do {
+		cout << "How many results do you want to see?" << endl;
+		cout << "1. 5 results" << endl;
+		cout << "2. 10 results" << endl;
+		cout << "3. 25 results" << endl;
+		cout << "4. All results" << endl;
+		cout << "Enter your choice (1/2/3/4): ";
+		cin >> option;
+
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "---- Invalid input. Please eneter a number. ----" << endl;
+			option = 0;
+			continue;
+		}
+
+		cin.ignore(1000, '\n');
+
+		if (option < 1 || option >4) {
+			cout << "---- Invalid choice. Please select 1, 2, 3 or 4. ----" << endl;
+		}
+
+	} while (option < 1 || option>4);
+
+
+			switch (option) {
+			case1: return 5;
+			case 2: return 10;
+			case 3: return 25;
+			case 4: return -1;
+			}
+
+			return -1;
+	
+}
 
 int main()
 {
@@ -107,10 +146,10 @@ int main()
 				cout << " ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~" << endl;
 				cout << "           ADVANCED OPTIONS         " << endl;
 				cout << " ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~" << endl;
-				cout << " 1. Sort airports by name" << endl;
-				cout << " 2. Sort airports by country" << endl;
+				cout << " 1. Sort airports by name (alphabetical)" << endl;
+				cout << " 2. Sort airports by country (alphabetical)" << endl;
 				cout << " 3. Filter airports by type and sort alphabetically" << endl;
-				cout << " 4. Sort airports by elevation" << endl;
+				cout << " 4. Sort airports by elevation (low to high)" << endl;
 				cout << " 5. Highest elevation airport" << endl;
 				cout << " 6. Lowest elevation airport" << endl;
 				cout << " 7. Show airports with missing IATA codes" << endl;
@@ -133,15 +172,19 @@ int main()
 				cin.ignore(1000, '\n');
 
 				switch (advChoice) {
-				case 1:
+				case 1: {
+					int limit = askResultLimit();
 					manager.sortByName();
-					manager.printFirstN(5);
+					manager.printFirstN(limit);
 					break;
+				}
 
-				case 2:
+				case 2: {
+					int limit = askResultLimit();
 					manager.sortByCountry();
-					manager.printFirstN(5);
+					manager.printFirstN(limit);
 					break;
+				}
 
 				case 3: {
 
@@ -149,46 +192,18 @@ int main()
 					cout << "Enter airport type:" << "\n";
 					cout << "(small_airport / medium_airport / large_airport / heliport / seaplane_base / balloonport) : ";
 					getline(cin, type);
-
-					int option;
-
-					do {
-						cout << "How many results do you want to see?" << "\n";
-						cout << "1. 5 results, \n2. 10 results \n3. 25 results \n4. All results" << endl;
-						cout << "Enter your choice (1/2/3/4): ";
-						cin >> option;
-
-						if (cin.fail()) {
-							cin.clear();
-							cin.ignore(1000, '\n');
-							cout << "Invalid input. Pleasze enetr number." << endl;
-							option = 0;
-							continue;
-						}
-						cin.ignore(1000, '\n');
-
-						if (option < 1 || option >4) {
-							cout << "Invalid choice. Please select number 1,2,3 or 4." << endl;
-						}
-					} while (option < 1 || option >4);
-
-					int limit;
-
-					switch (option) {
-					case 1: limit = 5; break;
-					case 2: limit = 10; break;
-					case 3: limit = 25; break;
-					case 4: limit = -1; break;
-					}
-
+					int limit = askResultLimit();
+					
 					manager.showByType(type, limit);
 					break;
 				}
 
-				case 4:
+				case 4: {
+					int limit = askResultLimit();
 					manager.sortByElevation();
-					manager.printFirstN(5);
+					manager.printFirstN(limit);
 					break;
+				}
 
 				case 5:
 					manager.highestElevation();
