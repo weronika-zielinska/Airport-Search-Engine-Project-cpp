@@ -230,7 +230,16 @@ int main()
 		}
 
 		case 10:
-			cout << " Exiting program..." << "\n" << "Thank you!" << endl;
+			cout << "\n";
+			cout << "========================================\n";
+			cout << "|                                      |\n";
+			cout << "|             THANK YOU!               |\n";
+			cout << "|                                      |\n";
+			cout << "|   for using Airport Search Engine    |\n";
+			cout << "|                                      |\n";
+			cout << "|          Have a nice day :)          |\n";
+			cout << "|                                      |\n";
+			cout << "========================================\n";
 			break;
 
 		default:

@@ -41,23 +41,5 @@ public:
 		cout << string(120, '-') << endl;
 	}
 
-
-
-
-
-	//	cout << left
-	//		<< "ID: " << ident
-	//		<< "| Name: " << name
-	//		<< "| Type: " << type
-	//		<< "| Country: " << country
-	//		<< "| Region: " << region
-	//		<< "| Municipality: " << municipality 
-	//		<< "| ICAO: " << icao
-	//		<< "| IATA: " << iata
-	//		<< "| GPS: " << gps
-	//		<< "| Local: " << localCode
-	//		<< "| Coordinates: " << latitude << "," << longitude
-	//		<< endl;
-
 	
 };

@@ -218,70 +218,95 @@ void AirportManager::countByType() { // using map - key-value container
 	for (const auto& airport : airports) {
 		counts[airport.type]++;  // jesli typ nie istnieje to sie tgworzy automatycznie i zwieksza licznik o jeden
 	}
-
-	cout << "Airports by type: " << endl;
+	cout << "---------------------------------------" << endl;
+	cout << "        Airports by type:        " << endl;
+	cout << "---------------------------------------" << endl;
 
 	for (const auto& pair : counts) { //wez kazda pare z mapy counts
-		cout << pair.first << ": " << pair.second << endl; //dostep do pierwszewgo i drugiego elementu pary
+		cout << left << setw(15) << pair.first << ": " << pair.second << endl; //dostep do pierwszewgo i drugiego elementu pary
 	}
 }
 
-void AirportManager::addAirport() {
-
+void AirportManager::addAirport() {  //validation for text an numbers to avoid errors
+	//adding to vector
 	Airport airport;
 
-	cout << "~*~*~*~*~*~*~*~ ADD NEW AIRPORT ~*~*~*~*~*~*~*~" << endl;
+	cout << "---------------------------------------\n";
+	cout << "             ADD NEW AIRPORT\n";
+	cout << "---------------------------------------\n";
+
 	cout << "Enter ident: ";
-	cin >> airport.ident;  //cin uzywam do prostych danych bez spacji i przecinkow
+	getline(cin, airport.ident);
 
-	cout << "Entery type: ";
-	cin >> airport.type;
-
-	cin.ignore(); //czysci bufor/enter z poprzedniego cin bez tego getline nie dziala
+	cout << "Enter type: ";
+	getline(cin, airport.type);
 
 	cout << "Enter name: ";
-	getline(cin, airport.name); // getline(..) to tekstow ze spacjami
+	getline(cin, airport.name);
 
 	cout << "Enter elevation (ft): ";
 	cin >> airport.elevation;
+	while (cin.fail()) {  //wehn fail its true asking one more time
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "Invalid input. Please enter a number for elevation: ";
+		cin >> airport.elevation;
+	}
+	cin.ignore(1000, '\n'); // delate enter from bufor
 
 	cout << "Enter continent: ";
-	cin >> airport.continent;
+	getline(cin, airport.continent);
 
 	cout << "Enter country code: ";
-	cin >> airport.country;
+	getline(cin, airport.country);
 
 	cout << "Enter region code: ";
-	cin >> airport.region;
-
-	cin.ignore(); 
+	getline(cin, airport.region);
 
 	cout << "Enter municipality: ";
 	getline(cin, airport.municipality);
 
 	cout << "Enter ICAO code: ";
-	cin >> airport.icao;
+	getline(cin, airport.icao);
 
 	cout << "Enter IATA code: ";
-	cin >> airport.iata;
+	getline(cin, airport.iata);
 
 	cout << "Enter GPS code: ";
-	cin >> airport.gps;
+	getline(cin, airport.gps);
 
 	cout << "Enter local code: ";
-		cin >> airport.localCode;
+	getline(cin, airport.localCode);
 
 	cout << "Enter latitude: ";
 	cin >> airport.latitude;
+	while (cin.fail()) {
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "Invalid input. Please enter a number for latitude: ";
+		cin >> airport.latitude;
+	}
+	cin.ignore(1000, '\n');
 
 	cout << "Enter longitude: ";
 	cin >> airport.longitude;
+	while (cin.fail()) {
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "Invalid input. Please enter a number for longitude: ";
+		cin >> airport.longitude;
+	}
+	cin.ignore(1000, '\n');
 
-	//dodanie nowe lotkisko do vectora
 	airports.push_back(airport);
 
-	cout << "~*~*~*~*~*~*~*~ Airport added successfully! ~*~*~*~*~*~*~*~" << endl;
-
+	cout << "\n========================================\n";
+	cout << "|                                      |\n";
+	cout << "|        *~* NEW AIRPORT ADDED *~*     |\n";
+	cout << "|                                      |\n";
+	cout << "|        Data saved successfully       |\n";
+	cout << "|                                      |\n";
+	cout << "========================================\n";
 }
 
 void AirportManager::saveToCSV(const string& filename) {
