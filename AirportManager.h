@@ -7,8 +7,16 @@
 #include <algorithm>
 #include <map>
 #include <set>
+#include <cctype>
 
 using namespace std;
+
+//zmniejszanie na male litery
+string toLowerCase(string text) {
+	transform(text.begin(), text.end(), text.begin(),
+		[](unsigned char c) {return tolower(c); });
+	return text;
+}
 
 string trim(const string& str) { //usuwamy spacje z poczatku i konca
 	size_t first = str.find_first_not_of(" \t\n\r");
@@ -155,10 +163,11 @@ void AirportManager::loadFromCSV(const string& filename) {
 void AirportManager::searchByCountry(const string& countryCode) {
 	
 	bool found = false; //czy znaleziono jakiekolwiek wyniki
+	string code = toLowerCase(countryCode);
 
 	for (const auto& airport : airports) { // przechodzi przez wszystkie lotniska
 
-		if (airport.country == countryCode) { // sprawdza czy kraj sie zgadza
+		if (toLowerCase (airport.country) == code) { // sprawdza czy kraj sie zgadza
 			airport.display();
 			found = true;
 		}
@@ -171,10 +180,11 @@ void AirportManager::searchByCountry(const string& countryCode) {
 
 void AirportManager::searchByName(const string& namePart) {
 	bool found = false;
+	string searchText = toLowerCase(namePart);
 
 	for (const auto& airport : airports) {
 		//sprawdzamy czy fragment nazwy wystepuje w nazwie jakiegos lotniska dlatego .find() - do fragnmentowego szukania
-		if (airport.name.find(namePart) != string::npos) { //npos oznacza znaleziono
+		if (toLowerCase(airport.name).find(searchText) != string::npos) { //npos oznacza znaleziono
 			airport.display();
 			found = true;
 		}
@@ -187,10 +197,10 @@ void AirportManager::searchByName(const string& namePart) {
 void AirportManager::searchByIATA(const string& iataCode) {
 	bool found = false;
 
-	string code = trim(iataCode); // czyscimy input uzytkownika
+	string code = toLowerCase(iataCode); // czyscimy input uzytkownika
 
 	for (const auto& airport : airports) {
-		if (airport.iata == code) { //szukamy dokladnego dopasowania kodu
+		if (toLowerCase (airport.iata) == code) { //szukamy dokladnego dopasowania kodu
 			airport.display();
 			found = true;
 		}
@@ -398,11 +408,12 @@ void AirportManager::missingIATA() {
 void AirportManager::deleteByIdent(const string& ident) {
 
 	bool found = false;
+	string code = toLowerCase(ident);
 
 	for (auto it = airports.begin(); it != airports.end(); ) {
 		// it to iterator - wskazuje na element w vektorze
 		
-			if (it->ident == ident) { // wez aktualny airport sprawdz jego ident
+			if (toLowerCase(it->ident) == code) { // wez aktualny airport sprawdz jego ident
 				it = airports.erase(it); // erase(it)usun element z veectora
 				// it = erase(it) przechodzi do nastepnego elementu
 				found = true;
@@ -433,16 +444,14 @@ multimap < string, Airport> AirportManager::groupByMunicipality() const {
 
 void AirportManager::showByMunicipality(const string& municipality) const {
 
-	multimap <string, Airport> grouped = groupByMunicipality();
-
-	auto range = grouped.equal_range(municipality); // zwraca zakres wszystkich rekodrow dla danego klucza
-	// ato zgaduje typ, range to para iteratorw(poczatek, koniec)
 	bool found = false;
+	string searchMunicipality = toLowerCase(municipality);
 
-	// w petli przechodze po wszystkich danych dla tego municipality
-	for (auto it = range.first; it != range.second; ++it) {
-		it->second.display(); // first - key, second - value
-		found = true;
+	for (const auto& airport : airports) {
+		if (toLowerCase(airport.municipality) == searchMunicipality) {
+			airport.display();
+			found = true;
+		}
 	}
 
 	if (!found) {
