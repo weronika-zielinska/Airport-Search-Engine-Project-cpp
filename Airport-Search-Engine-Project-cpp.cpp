@@ -27,9 +27,9 @@ int main()
 		cout << " 3. Search by IATA code" << endl;
 		cout << " 4. Display all airports" << endl;
 		cout << " 5. Count airports by type" << endl;
-		cout << " 6. Add new airport" << endl; 
-		cout << " 7. Save changes to CSV file" << endl; // you can add few airports and after just save all to csv
-		cout << " 8. Delete airport drom CSV by ident" << endl;
+		cout << " 6. Add new airport" << endl;
+		cout << " 7. Delete airport by ident" << endl;
+		cout << " 8. Save changes to CSV file" << endl; // you can add few airports and after just save all to csv
 		cout << " 9. Advanced options" << endl;
 		cout << " 10. Exit" << endl;
 		cout << "---------------------------------------" << endl;
@@ -45,7 +45,7 @@ int main()
 			cout << "Invalid input. Please enter a number." << endl;
 			continue;
 		}
-		cin.ignore(); // jak poprawna liczba to ignoruje enter
+		cin.ignore(1000, '\n'); // jak poprawna liczba to ignoruje enter
 
 		switch (choice) { //wybiera co zrobic w zaleznosci od opcji
 		case 1: {
@@ -64,7 +64,7 @@ int main()
 			manager.searchByName(name);
 			break;
 		}
-			
+
 		case 3: {
 			string iata; // nowy variables to iata
 			cout << "Enter IATA code (e.g. LHR, JFK): ";
@@ -86,11 +86,7 @@ int main()
 			manager.addAirport();
 			break;
 
-		case 7: 
-			manager.saveToCSV("airport-codes.csv");
-			break;
-
-		case 8: {
+		case 7: {
 			string id;
 			cout << "Enter airport ident to delete: ";
 			cin >> id;
@@ -98,6 +94,11 @@ int main()
 			manager.deleteByIdent(id);
 			break;
 		}
+
+		case 8:
+			manager.saveToCSV("airport-codes.csv");
+			break;
+
 
 		case 9: {
 			int advChoice;
@@ -209,12 +210,12 @@ int main()
 					manager.showByMunicipality(municipality);
 					break;
 				}
-					  
-				case 9: 
+
+				case 9:
 					manager.showUniqueTypes();
 					break;
 
-				case 10: 
+				case 10:
 					manager.countByCountry();
 					break;
 
@@ -223,13 +224,33 @@ int main()
 					break;
 
 				default:
-					cout << "Invalid choice!" << endl; 
+					cout << "Invalid choice!" << endl;
 				}
 			} while (advChoice != 11);
 			break;
 		}
 
-		case 10:
+		case 10: {
+			char saveChoice;
+
+			do {
+				cout << "\nDo you want to save changes before exiting? (y/n): ";
+				cin >> saveChoice;
+				cin.ignore(1000, '\n');
+
+				if (saveChoice != 'y' && saveChoice != 'Y' &&
+					saveChoice != 'n' && saveChoice != 'N') {
+					cout << "Invalid input. Please enter y or n.\n";
+				}
+
+			} while (saveChoice != 'y' && saveChoice != 'Y' &&
+				saveChoice != 'n' && saveChoice != 'N');
+
+			if (saveChoice == 'y' || saveChoice == 'Y') {
+				manager.saveToCSV("airport-codes.csv");
+				cout << " ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*" << endl;
+			
+			}
 			cout << "\n";
 			cout << "========================================\n";
 			cout << "|                                      |\n";
@@ -241,16 +262,13 @@ int main()
 			cout << "|                                      |\n";
 			cout << "========================================\n";
 			break;
-
+		}
 		default:
-			cout << "Invalid choice!" << endl;
+			cout << " ------- Invalid choice! ------" << endl;
 		}
 
-	}
-			while (choice != 10);
 
-			return 0;
+	} while (choice != 10);
 
- 
+	return 0;
 }
-
