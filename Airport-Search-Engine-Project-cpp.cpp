@@ -19,7 +19,9 @@ int main()
 	int choice;
 
 	do {
-		cout << "\n ~*~*~*~*~ AIRPORT SEARCH ENGINE ~*~*~*~*~\n";
+		cout << "\n ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~" << endl;
+		cout << "         AIRPORT SEARCH ENGINE       " << endl;
+		cout << " ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~" << endl;
 		cout << " 1. Search airports by country" << endl;
 		cout << " 2. Search airports by name" << endl;
 		cout << " 3. Search by IATA code" << endl;
@@ -30,6 +32,7 @@ int main()
 		cout << " 8. Delete airport drom CSV by ident" << endl;
 		cout << " 9. Advanced options" << endl;
 		cout << " 10. Exit" << endl;
+		cout << "---------------------------------------" << endl;
 		cout << "Enter your choice: " << endl;
 		cin >> choice;
 
@@ -100,7 +103,9 @@ int main()
 			int advChoice;
 
 			do {
-				cout << " ~*~*~*~*~*~ ADVANCED OPTIONS ~*~*~*~*~ " << endl;;
+				cout << " ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~" << endl;
+				cout << "           ADVANCED OPTIONS         " << endl;
+				cout << " ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~" << endl;
 				cout << " 1. Sort airports by name" << endl;
 				cout << " 2. Sort airports by country" << endl;
 				cout << " 3. Filter airports by type and sort alphabetically" << endl;
@@ -112,8 +117,10 @@ int main()
 				cout << " 9. Show unique airport types: " << endl;
 				cout << " 10. Count airports by country" << endl;
 				cout << " 11. Back to main menu" << endl;
+				cout << "---------------------------------------" << endl;
 				cout << " Enter your choice: ";
 				cin >> advChoice;
+				cout << "\n";
 
 				if (cin.fail()) {
 					cin.clear();
