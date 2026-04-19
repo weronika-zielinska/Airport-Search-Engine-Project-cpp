@@ -79,20 +79,20 @@ int main()
 		cout << "Enter your choice: " << endl;
 		cin >> choice;
 
-		//uzywamy metod z <iostream> zeby dodac validation
-		if (cin.fail()) { // sprawdza czy wpisana wartosc byla zla, jak zla to wchodzi w stan bledu
-			cin.clear(); //resetuje stan bledu
-			cin.ignore(1000, '\n'); // wyrzuca z bufora zle dane do konca linii
-			// 1000 - ignoruje do 1000 znakow, max liczba znakow do usuniecia
-			// \n - do momentu napotkania na enter, nowej linni
+		//used method from <iostream> to add validation
+		if (cin.fail()) { // check if value was wrong, if wrong then error
+			cin.clear(); //reset error
+			cin.ignore(1000, '\n'); // clear bufor - wrong data up to end of line
+			// 1000 - ignore up to 1000 signs
+			// \n - up to enter 
 			cout << "\n----------------------------------------\n";
 			cout << "Invalid input. Please enter a number." << endl;
 			cout << "----------------------------------------\n";
 			continue;
 		}
-		cin.ignore(1000, '\n'); // jak poprawna liczba to ignoruje enter
+		cin.ignore(1000, '\n'); // if good number then ignore enter
 
-		switch (choice) { //wybiera co zrobic w zaleznosci od opcji
+		switch (choice) { // choice to do
 		case 1: {
 			string country;
 			cout << "----------------------------------------\n";
@@ -104,7 +104,7 @@ int main()
 			break;
 		}
 		case 2: {
-			string name; //nowy variables to szukania po nazwie
+			string name; //new variable to searching by name
 			cout << "----------------------------------------\n";
 			cout << "Enter part of airport name: ";
 			getline(cin, name); // to search more than 1 word
@@ -115,7 +115,7 @@ int main()
 		}
 
 		case 3: {
-			string iata; // nowy variables to iata
+			string iata; // new variable to searching by iata
 			cout << "\n----------------------------------------\n";
 			cout << "Enter IATA code (e.g. LHR, JFK): ";
 			cin >> iata;;

@@ -11,14 +11,14 @@
 
 using namespace std;
 
-//zmniejszanie na male litery
+//change for small letters / lower case
 string toLowerCase(string text) {
 	transform(text.begin(), text.end(), text.begin(),
 		[](unsigned char c) {return tolower(c); });
 	return text;
 }
 
-string trim(const string& str) { //usuwamy spacje z poczatku i konca
+string trim(const string& str) { //delete empty spaces from start and end
 	size_t first = str.find_first_not_of(" \t\n\r");
 	size_t last = str.find_last_not_of(" \t\n\r");
 
@@ -38,19 +38,19 @@ string removeQuotes(string text) {  //daleting saved extra quotations
 	return text;
 }
 
-class AirportManager {  // klasa zarzajaca wszystkimi lotniskami
+class AirportManager {  // class to manage all airports functions
 public:
-	vector <Airport> airports; // lista wszystkich lotnisk
+	vector <Airport> airports; // vector with all airports list
 
-	void loadFromCSV(const string& filename); //funkcja do wczytywanie z csv
+	void loadFromCSV(const string& filename); // loading data from csv
 
-	void displayAll() { // funckja do wyswietlanie z csv
+	void displayAll() { // display from csv
 		for (const auto& airport : airports) {
 			airport.display();
 		}
 	}
 
-	void searchByCountry(const string& countryCode);  //deklaracje
+	void searchByCountry(const string& countryCode);  //declarations
 	void searchByName(const string& namePart);
 	void searchByIATA(const string& iataCode);
 	void countByType();
@@ -73,7 +73,7 @@ public:
 
 };
 
-// implementacja funkcji
+// implementations
 void AirportManager::loadFromCSV(const string& filename) {
 
 	ifstream file(filename); //input file stream - reading csv
@@ -87,13 +87,13 @@ void AirportManager::loadFromCSV(const string& filename) {
 
 	string line; // it will be safe line from csv
 
-	getline(file, line); // pomijamy naglowek
+	getline(file, line); // we leave headers in csv
 
 	while (getline(file, line)) {
 
 		stringstream ss(line); // ss from <sstream> making data with pieces with ,
 		string column; // to save one column of csv
-		Airport airport; //nowy obiekt airport
+		Airport airport; //new object airport
 
 		getline(ss, airport.ident, ','); //ident
 
@@ -133,25 +133,25 @@ void AirportManager::loadFromCSV(const string& filename) {
 		getline(ss, airport.localCode, ','); // local code
 
 		//coordinates 
-		getline(ss, column); //czytaj z ss, zapisz do column
+		getline(ss, column); //read from ss, save to column
 
 
-		//column.empty - sprawddza czy string jest pusty true=pusty, false=zawartosc
-		//jesli string nie jest pusty, a pierwszy znak to "
+		//column.empty - check if string its empty - true=empty, false=something inside
+		//if string its not empty and first sign its "
 		if (!column.empty() && column.front() == '"') {
-			column.erase(0, 1); //erase usuwa fragment tekstu - pierwszy"
+			column.erase(0, 1); //erase- delate first sign so "
 		}
-		//column.back zwraca ostatni znak stringa czyli "
+		//column.back - back with last sign from string so "
 		if (!column.empty() && column.back() == '"') {
-			column.pop_back(); //usuwa ostatni znak
+			column.pop_back(); //delete last sign 
 		}
 
-		//szukanie przecinka
-		//size_t - typ liczbowy uzywany do pozycji w string
-		//commaPos - zmienna pamieta gdzie jest przecinek
+		//looking for commas
+		//size_t - nymber type - used to positions in string
+		//commaPos - remember where is comma
 		size_t commaPos = column.find(','); 
 
-		//sprawdzamy czy przecinek jest znaleziony
+		//chceck if comma was found
 		if (commaPos != string::npos) { //checking if there is comma, string::npos =? - means not found
 			string lat = column.substr(0, commaPos); //take first coordinate from position 0 to comma
 			string lon = column.substr(commaPos + 1); // take secon coordinate after comma
@@ -178,18 +178,17 @@ void AirportManager::loadFromCSV(const string& filename) {
 
 void AirportManager::searchByCountry(const string& countryCode) {
 	
-	bool found = false; //czy znaleziono jakiekolwiek wyniki
+	bool found = false; //if there is any results
 	string code = toLowerCase(countryCode);
 
-	for (const auto& airport : airports) { // przechodzi przez wszystkie lotniska
-
-		if (toLowerCase (airport.country) == code) { // sprawdza czy kraj sie zgadza
+	for (const auto& airport : airports) { // check all airports
+		if (toLowerCase (airport.country) == code) { // check if country matching
 			airport.display();
 			found = true;
 		}
 	}
 
-	if (!found) { // jesli nie znalazlo to komunikat
+	if (!found) { // if its not found then print
 		cout << "\n----------------------------------------\n";
 		cout << "No airports found for country: " << countryCode << endl;
 		cout << "----------------------------------------\n";
@@ -201,8 +200,9 @@ void AirportManager::searchByName(const string& namePart) {
 	string searchText = toLowerCase(namePart);
 
 	for (const auto& airport : airports) {
-		//sprawdzamy czy fragment nazwy wystepuje w nazwie jakiegos lotniska dlatego .find() - do fragnmentowego szukania
-		if (toLowerCase(airport.name).find(searchText) != string::npos) { //npos oznacza znaleziono
+		//check if any part of airport name its existing in file  
+		// .find() - to find just parts of words
+		if (toLowerCase(airport.name).find(searchText) != string::npos) { //npos - means found
 			airport.display();
 			found = true;
 		}
@@ -217,10 +217,10 @@ void AirportManager::searchByName(const string& namePart) {
 void AirportManager::searchByIATA(const string& iataCode) {
 	bool found = false;
 
-	string code = toLowerCase(iataCode); // czyscimy input uzytkownika
+	string code = toLowerCase(iataCode); // cleaning user input
 
 	for (const auto& airport : airports) {
-		if (toLowerCase (airport.iata) == code) { //szukamy dokladnego dopasowania kodu
+		if (toLowerCase (airport.iata) == code) { //looking exactly matching code
 			airport.display();
 			found = true;
 		}
@@ -233,18 +233,18 @@ void AirportManager::searchByIATA(const string& iataCode) {
 }
 
 void AirportManager::countByType() { // using map - key-value container
-	map <string, int> counts; //przechowuje dane bo kolumna "type" to liczba
-	// klucz - string , wartosc - int, map przechowuje pary danych pair=(klucz,wartosc)
+	map <string, int> counts; //saving data because column 'type' its number 
+	// key - string , value - int, map saving pairs of data (key, value)
 
 	for (const auto& airport : airports) {
-		counts[airport.type]++;  // jesli typ nie istnieje to sie tgworzy automatycznie i zwieksza licznik o jeden
-	}
-	cout << "---------------------------------------" << endl;
-	cout << "        Airports by type:        " << endl;
-	cout << "---------------------------------------" << endl;
+		counts[airport.type]++;  // if type dont exist then create it and increase number of 1
+		cout << "---------------------------------------" << endl;
+		cout << "        Airports by type:        " << endl;
+		cout << "---------------------------------------" << endl;
 
-	for (const auto& pair : counts) { //wez kazda pare z mapy counts
-		cout << left << setw(15) << pair.first << ": " << pair.second << endl; //dostep do pierwszewgo i drugiego elementu pary
+		for (const auto& pair : counts) { //take every pair form map counts
+			cout << left << setw(15) << pair.first << ": " << pair.second << endl; // going to 1st and 2nd element of pair 
+		}
 	}
 }
 
@@ -374,7 +374,7 @@ void AirportManager::saveToCSV(const string& filename) {
 	cout << "========================================\n";
 }
 
-void AirportManager::printFirstN(int n) {  //wypisuje pierwsze N lotnisk
+void AirportManager::printFirstN(int n) {  //writing fiirst N airports
 
 	if (n == -1) {
 		for (const auto& airport : airports) {
@@ -390,15 +390,15 @@ void AirportManager::printFirstN(int n) {  //wypisuje pierwsze N lotnisk
 
 void AirportManager::sortByName() {
 
-	sort(airports.begin(), airports.end(), // sort sortuyje vector
-		[](Airport a, Airport b) {  // lambda [] porownuje dwa lotniska
-			return a.name < b.name; // warunek sortuje alfabetycznie
+	sort(airports.begin(), airports.end(), // sort - for vector sorting
+		[](Airport a, Airport b) {  // lambda [] compare two airports
+			return a.name < b.name; // sort alphabetically
 		});
 }
 
 void AirportManager::sortByCountry() {
 
-	sort(airports.begin(), airports.end(), //sortuje vector od pierwszego elementu do ostatiego
+	sort(airports.begin(), airports.end(), //sort vector from first element to last element
 		[](Airport a, Airport b) {
 			return a.country < b.country;
 		});
@@ -429,11 +429,11 @@ void AirportManager::highestElevation() {
 		return;
 	}
 
-	Airport highest = airports[0]; //bierzemy pierwsze lotnisko i porownyjemy z kolejnym
+	Airport highest = airports[0]; //take 1st airport and compare to next one
 
 	for (const auto& airport : airports) {
 		if (airport.elevation > highest.elevation) {
-			highest = airport; // zapisujemy najwyzsze
+			highest = airport; // save highest
 		}
 	}
 	cout << "Highest elevation airport: " << "\n";
@@ -467,7 +467,7 @@ void AirportManager::missingIATA(int limit) const {
 
 	for (const auto& airport : airports) {
 
-		if (airport.iata.empty()) { // sprawdzamy czy iata puste
+		if (airport.iata.empty()) { // check if iata its empty
 			airport.display();
 			found = true;
 			count++;
@@ -494,11 +494,11 @@ void AirportManager::deleteByIdent(const string& ident) {
 	string code = toLowerCase(ident);
 
 	for (auto it = airports.begin(); it != airports.end(); ) {
-		// it to iterator - wskazuje na element w vektorze
+		// 'it' its  iterator - showin for element in vector
 		
-			if (toLowerCase(it->ident) == code) { // wez aktualny airport sprawdz jego ident
-				it = airports.erase(it); // erase(it)usun element z veectora
-				// it = erase(it) przechodzi do nastepnego elementu
+			if (toLowerCase(it->ident) == code) { // tak actual airport and check ident
+				it = airports.erase(it); // erase(it) - delete element from veector
+				// it = erase(it)  - going to next elemet 
 				found = true;
 			}
 			else {
@@ -520,17 +520,18 @@ void AirportManager::deleteByIdent(const string& ident) {
 		cout << "\n----------------------------------------\n";
 	}
 }
-//multimap pozwala miec duzo rekordow pod tym samym kluczem
-// map to struktura danych klucz i wartosc np age["Anna"] =20
+//multimap allow to kave few records in on kay 
+// map - data structure - have key and value eg. ["Anna"] =20
 multimap < string, Airport> AirportManager::groupByMunicipality() const {
-	multimap <string, Airport> grouped; // tworzymy multimap grouped, pierwsza wartosc to string, druga airport
+	multimap <string, Airport> grouped; // create multimap grouped - 1st its string, 2nd airport
 
 	for (const auto& airport : airports) {
-		grouped.insert({ airport.municipality, airport }); // dodaje element do map
+		grouped.insert({ airport.municipality, airport }); // add element to map
 	}
 
-	return grouped; // zwracamy gotowa mape z danymi
+	return grouped; // return ready map withn data
 }
+
 
 void AirportManager::showByMunicipality(const string& municipality) const {
 
@@ -553,16 +554,16 @@ void AirportManager::showByMunicipality(const string& municipality) const {
 
 void AirportManager::showUniqueTypes() const {
 
-	set <string> types; // ustawiamy nowy set - zawsze ma unikalne wartosci, nie powtarza
+	set <string> types; // make a new set - always have unique data
 
 	for (const auto& airport : airports) {
-		types.insert(airport.type); // dodajemy typ lotniska, jak juz istenie to ignoruje
+		types.insert(airport.type); // add airport type, if already exist then ignore
 	}
 	cout << "\n----------------------------------------\n";
 	cout << "Unique airport types: " << endl;
 	cout << "----------------------------------------\n";
 
-	for (const auto& type : types) { //przechodzimy po unikalnych tgypach w petli
+	for (const auto& type : types) { //going around unique types in loop
 		cout << type << endl;
 	}
 
@@ -573,7 +574,8 @@ void AirportManager::countByCountry() const {
 	map<string, int> counts; // string - county, int - number
 
 	for (const auto& airport : airports) {
-		counts[airport.country]++; // jesli kraj nie istnieje, tworzy go z wartoscia 0 i potem zwieksza o 1
+		counts[airport.country]++; // if country dont exist then create with 0 and icrease for 1
+		
 	}
 
 	cout << "\n----------------------------------------\n";
