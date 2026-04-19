@@ -63,7 +63,7 @@ public:
 	void sortByElevation();
 	void highestElevation();
 	void lowestElevation();
-	void missingIATA();
+	void missingIATA(int limit) const;
 	void deleteByIdent(const string& ident);
 	multimap <string, Airport> groupByMunicipality() const;
 	void showByMunicipality(const string& municipality) const;
@@ -79,7 +79,9 @@ void AirportManager::loadFromCSV(const string& filename) {
 	ifstream file(filename); //input file stream - reading csv
 
 	if (!file.is_open()) { //check if file can be open
+		cout << "\n----------------------------------------\n";
 		cout << "Error! Could not open file!" << endl;
+		cout << "----------------------------------------\n";
 		return;
 	}
 
@@ -188,7 +190,9 @@ void AirportManager::searchByCountry(const string& countryCode) {
 	}
 
 	if (!found) { // jesli nie znalazlo to komunikat
+		cout << "\n----------------------------------------\n";
 		cout << "No airports found for country: " << countryCode << endl;
+		cout << "----------------------------------------\n";
 	}
 }
 
@@ -204,7 +208,9 @@ void AirportManager::searchByName(const string& namePart) {
 		}
 	}
 	if (!found) {
+		cout << "\n----------------------------------------\n";
 		cout << "No Airports matching the criteria: " << namePart << endl;
+		cout << "----------------------------------------\n";
 	}
 }
 
@@ -220,7 +226,9 @@ void AirportManager::searchByIATA(const string& iataCode) {
 		}
 	}
 	if (!found) {
-		cout << " No airpost found with IATA code: " << iataCode << endl;
+		cout << "\n----------------------------------------\n";
+		cout << " No airport found with IATA code: " << iataCode << endl;
+		cout << "----------------------------------------\n";
 	}
 }
 
@@ -262,7 +270,9 @@ void AirportManager::addAirport() {  //validation for text an numbers to avoid e
 	while (cin.fail()) {  //wehn fail its true asking one more time
 		cin.clear();
 		cin.ignore(1000, '\n');
+		cout << "\n----------------------------------------\n";
 		cout << "Invalid input. Please enter a number for elevation: ";
+		cout << "----------------------------------------\n";
 		cin >> airport.elevation;
 	}
 	cin.ignore(1000, '\n'); // delate enter from bufor
@@ -296,7 +306,9 @@ void AirportManager::addAirport() {  //validation for text an numbers to avoid e
 	while (cin.fail()) {
 		cin.clear();
 		cin.ignore(1000, '\n');
+		cout << "\n----------------------------------------\n";
 		cout << "Invalid input. Please enter a number for latitude: ";
+		cout << "----------------------------------------\n";
 		cin >> airport.latitude;
 	}
 	cin.ignore(1000, '\n');
@@ -306,7 +318,9 @@ void AirportManager::addAirport() {  //validation for text an numbers to avoid e
 	while (cin.fail()) {
 		cin.clear();
 		cin.ignore(1000, '\n');
+		cout << "\n----------------------------------------\n";
 		cout << "Invalid input. Please enter a number for longitude: ";
+		cout << "----------------------------------------\n";
 		cin >> airport.longitude;
 	}
 	cin.ignore(1000, '\n');
@@ -326,7 +340,9 @@ void AirportManager::saveToCSV(const string& filename) {
 	ofstream file(filename);
 
 		if (!file.is_open()) {
+			cout << "\n----------------------------------------\n";
 			cout << "Error! File could not be opened for saving." << endl;
+			cout << "----------------------------------------\n";
 			return;
 		}
 	//zapis naglowka csv
@@ -407,7 +423,9 @@ void AirportManager::sortByElevation() {
 void AirportManager::highestElevation() {
 
 	if (airports.empty()) {
+		cout << "\n----------------------------------------\n";
 		cout << "No airports loaded." << endl;
+		cout << "----------------------------------------\n";
 		return;
 	}
 
@@ -425,7 +443,9 @@ void AirportManager::highestElevation() {
 void AirportManager::lowestElevation() {
 
 	if (airports.empty()) {
+		cout << "\n----------------------------------------\n";
 		cout << "No airports loaded." << endl;
+		cout << "----------------------------------------\n";
 		return;
 	}
 
@@ -440,8 +460,9 @@ void AirportManager::lowestElevation() {
 	lowest.display();
 }
 
-void AirportManager::missingIATA() {
+void AirportManager::missingIATA(int limit) const {
 
+	int count = 0;
 	bool found = false;
 
 	for (const auto& airport : airports) {
@@ -449,11 +470,21 @@ void AirportManager::missingIATA() {
 		if (airport.iata.empty()) { // sprawdzamy czy iata puste
 			airport.display();
 			found = true;
+			count++;
+
+			if (limit != -1 && count >= limit) {
+				break;
+			}
 		}
 	}
 
 	if (!found) {
+		cout << "\n----------------------------------------\n";
 		cout << "All airports have IATA codes." << endl;
+		cout << "----------------------------------------\n";
+	}
+	else {
+		cout << endl;
 	}
 }
 
@@ -484,7 +515,9 @@ void AirportManager::deleteByIdent(const string& ident) {
 		cout << "" << endl;
 	}
 	else {
+		cout << "\n----------------------------------------\n";
 		cout << "------- No airport found with ident: " << ident <<" ------" << endl;
+		cout << "\n----------------------------------------\n";
 	}
 }
 //multimap pozwala miec duzo rekordow pod tym samym kluczem
@@ -512,7 +545,9 @@ void AirportManager::showByMunicipality(const string& municipality) const {
 	}
 
 	if (!found) {
+		cout << "\n----------------------------------------\n";
 		cout << "No airports found in municipality: " << municipality << endl;
+		cout << "----------------------------------------\n";
 	}
 }
 
@@ -523,8 +558,9 @@ void AirportManager::showUniqueTypes() const {
 	for (const auto& airport : airports) {
 		types.insert(airport.type); // dodajemy typ lotniska, jak juz istenie to ignoruje
 	}
-
+	cout << "\n----------------------------------------\n";
 	cout << "Unique airport types: " << endl;
+	cout << "----------------------------------------\n";
 
 	for (const auto& type : types) { //przechodzimy po unikalnych tgypach w petli
 		cout << type << endl;
@@ -540,7 +576,9 @@ void AirportManager::countByCountry() const {
 		counts[airport.country]++; // jesli kraj nie istnieje, tworzy go z wartoscia 0 i potem zwieksza o 1
 	}
 
+	cout << "\n----------------------------------------\n";
 	cout << "Airports by country: " << endl;
+	cout << "----------------------------------------\n";
 
 	for (const auto& pair : counts) {
 		cout << pair.first << ": " << pair.second << endl;
@@ -562,7 +600,9 @@ void AirportManager::showByType(const string& type, int limit) const {
 
 	//check if found someting
 	if (filtered.empty()) {
+		cout << "\n----------------------------------------\n";
 		cout << "No airports found by type: " << type << endl;
+		cout << "----------------------------------------\n";
 		return;
 	}
 

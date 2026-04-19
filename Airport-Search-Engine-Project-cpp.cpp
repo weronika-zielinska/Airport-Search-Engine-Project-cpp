@@ -25,7 +25,9 @@ int askResultLimit() {
 		if (cin.fail()) {
 			cin.clear();
 			cin.ignore(1000, '\n');
-			cout << "---- Invalid input. Please eneter a number. ----" << endl;
+			cout << "\n----------------------------------------\n";
+			cout << " Invalid input. Please eneter a number." << endl;
+			cout << "----------------------------------------\n";
 			option = 0;
 			continue;
 		}
@@ -33,7 +35,9 @@ int askResultLimit() {
 		cin.ignore(1000, '\n');
 
 		if (option < 1 || option >4) {
-			cout << "---- Invalid choice. Please select 1, 2, 3 or 4. ----" << endl;
+			cout << "\n----------------------------------------\n";
+			cout << " Invalid choice. Please select 1, 2, 3 or 4. " << endl;
+			cout << "----------------------------------------\n";
 		}
 
 	} while (option < 1 || option>4);
@@ -81,7 +85,9 @@ int main()
 			cin.ignore(1000, '\n'); // wyrzuca z bufora zle dane do konca linii
 			// 1000 - ignoruje do 1000 znakow, max liczba znakow do usuniecia
 			// \n - do momentu napotkania na enter, nowej linni
+			cout << "\n----------------------------------------\n";
 			cout << "Invalid input. Please enter a number." << endl;
+			cout << "----------------------------------------\n";
 			continue;
 		}
 		cin.ignore(1000, '\n'); // jak poprawna liczba to ignoruje enter
@@ -89,16 +95,20 @@ int main()
 		switch (choice) { //wybiera co zrobic w zaleznosci od opcji
 		case 1: {
 			string country;
+			cout << "----------------------------------------\n";
 			cout << "Enter country code (e.g. GB, US): ";
 			cin >> country;
+			cout << "\n----------------------------------------\n";
 
 			manager.searchByCountry(country);
 			break;
 		}
 		case 2: {
 			string name; //nowy variables to szukania po nazwie
+			cout << "----------------------------------------\n";
 			cout << "Enter part of airport name: ";
 			getline(cin, name); // to search more than 1 word
+			cout << "----------------------------------------\n";
 
 			manager.searchByName(name);
 			break;
@@ -106,8 +116,10 @@ int main()
 
 		case 3: {
 			string iata; // nowy variables to iata
+			cout << "\n----------------------------------------\n";
 			cout << "Enter IATA code (e.g. LHR, JFK): ";
 			cin >> iata;;
+			cout << "----------------------------------------\n";
 
 			manager.searchByIATA(iata);
 			break;
@@ -154,7 +166,7 @@ int main()
 				cout << " 6. Lowest elevation airport" << endl;
 				cout << " 7. Show airports with missing IATA codes" << endl;
 				cout << " 8. Show airports by municipality" << endl;
-				cout << " 9. Show unique airport types: " << endl;
+				cout << " 9. Show unique airport types" << endl;
 				cout << " 10. Count airports by country" << endl;
 				cout << " 11. Back to main menu" << endl;
 				cout << "---------------------------------------" << endl;
@@ -165,7 +177,9 @@ int main()
 				if (cin.fail()) {
 					cin.clear();
 					cin.ignore(1000, '\n');
+					cout << "\n----------------------------------------\n";
 					cout << "Invalid input. Please enter a number." << endl;
+					cout << "----------------------------------------\n";
 					continue;
 				}
 
@@ -189,9 +203,11 @@ int main()
 				case 3: {
 
 					string type;
+					cout << "\n----------------------------------------\n";
 					cout << "Enter airport type:" << "\n";
 					cout << "(small_airport / medium_airport / large_airport / heliport / seaplane_base / balloonport) : ";
 					getline(cin, type);
+					cout << "----------------------------------------\n";
 					int limit = askResultLimit();
 					
 					manager.showByType(type, limit);
@@ -213,14 +229,18 @@ int main()
 					manager.lowestElevation();
 					break;
 
-				case 7:
-					manager.missingIATA();
+				case 7: {
+					int limit = askResultLimit();
+					manager.missingIATA(limit);
 					break;
+				}
 
 				case 8: {
 					string municipality;
+					cout << "\n----------------------------------------\n";
 					cout << "Enter municipality: ";
 					getline(cin, municipality);
+					cout << "----------------------------------------\n";
 
 					manager.showByMunicipality(municipality);
 					break;
@@ -235,11 +255,15 @@ int main()
 					break;
 
 				case 11:
+					cout << "\n----------------------------------------\n";
 					cout << "Returning to main menu..." << endl;
+					cout << "----------------------------------------\n";
 					break;
 
 				default:
+					cout << "\n----------------------------------------\n";
 					cout << "Invalid choice!" << endl;
+					cout << "----------------------------------------\n";
 				}
 			} while (advChoice != 11);
 			break;
@@ -249,13 +273,17 @@ int main()
 			char saveChoice;
 
 			do {
+				cout << "\n----------------------------------------\n";
 				cout << "\nDo you want to save changes before exiting? (y/n): ";
 				cin >> saveChoice;
+				cout << "----------------------------------------\n";
 				cin.ignore(1000, '\n');
 
 				if (saveChoice != 'y' && saveChoice != 'Y' &&
 					saveChoice != 'n' && saveChoice != 'N') {
-					cout << "Invalid input. Please enter y or n.\n";
+					cout << "\n----------------------------------------\n";
+					cout << "Invalid input. Please enter y or n." << endl;
+					cout << "----------------------------------------\n";
 				}
 
 			} while (saveChoice != 'y' && saveChoice != 'Y' &&
@@ -279,7 +307,9 @@ int main()
 			break;
 		}
 		default:
-			cout << " ------- Invalid choice! ------" << endl;
+			cout << "\n----------------------------------------\n";
+			cout << " Invalid choice! " << endl;
+			cout << "----------------------------------------\n";
 		}
 
 
