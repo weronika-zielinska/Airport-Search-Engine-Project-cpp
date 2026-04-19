@@ -271,7 +271,7 @@ void AirportManager::addAirport() {  //validation for text an numbers to avoid e
 		cin.clear();
 		cin.ignore(1000, '\n');
 		cout << "\n----------------------------------------\n";
-		cout << "Invalid input. Please enter a number for elevation: ";
+		cout << "Invalid input. Please enter a number for elevation: " << endl;;
 		cout << "----------------------------------------\n";
 		cin >> airport.elevation;
 	}
@@ -307,7 +307,7 @@ void AirportManager::addAirport() {  //validation for text an numbers to avoid e
 		cin.clear();
 		cin.ignore(1000, '\n');
 		cout << "\n----------------------------------------\n";
-		cout << "Invalid input. Please enter a number for latitude: ";
+		cout << "Invalid input. Please enter a number for latitude: " << endl;
 		cout << "----------------------------------------\n";
 		cin >> airport.latitude;
 	}
@@ -319,7 +319,7 @@ void AirportManager::addAirport() {  //validation for text an numbers to avoid e
 		cin.clear();
 		cin.ignore(1000, '\n');
 		cout << "\n----------------------------------------\n";
-		cout << "Invalid input. Please enter a number for longitude: ";
+		cout << "Invalid input. Please enter a number for longitude: " << endl;
 		cout << "----------------------------------------\n";
 		cin >> airport.longitude;
 	}
