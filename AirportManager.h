@@ -516,7 +516,7 @@ void AirportManager::deleteByIdent(const string& ident) {
 	}
 	else {
 		cout << "\n----------------------------------------\n";
-		cout << "------- No airport found with ident: " << ident <<" ------" << endl;
+		cout << "No airport found with ident: " << ident << endl;
 		cout << "\n----------------------------------------\n";
 	}
 }
