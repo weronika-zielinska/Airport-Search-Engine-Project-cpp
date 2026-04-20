@@ -39,9 +39,9 @@ string removeQuotes(string text) {  //daleting saved extra quotations
 }
 
 class AirportManager {  // class to manage all airports functions
-public:
+private:
 	vector <Airport> airports; // vector with all airports list
-
+public:
 	void loadFromCSV(const string& filename); // loading data from csv
 
 	void displayAll() { // display from csv
