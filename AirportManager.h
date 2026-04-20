@@ -45,7 +45,6 @@ public:
 	void loadFromCSV(const string& filename); // loading data from csv
 
 	void displayAll() { // display from csv
-
 		for (const auto& airport : airports) {
 			airport.display();
 		}
